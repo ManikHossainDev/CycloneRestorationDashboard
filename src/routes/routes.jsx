@@ -30,6 +30,8 @@ import TeamslistPage from "../page/TeamslistPage/TeamslistPage";
 import SubscriptionPage from "../page/SubscriptionPage/SubscriptionPage";
 import PaymentRequestPage from "../page/PaymentRequestPage/PaymentRequestPage";
 import AddSubscriptionPage from "../page/AddSubscriptionPage/AddSubscriptionPage";
+import EidtSubscriptionPage from "../page/EidtSubscriptionPage/EidtSubscriptionPage";
+import ReportsDetailsPage from "../page/ReportsDetailsPage/ReportsDetailsPage.JSX";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,10 @@ const router = createBrowserRouter([
         element: <AddSubscriptionPage />
       },
       {
+          path: "Subscription/:id",
+          element: <EidtSubscriptionPage/>
+      },
+      {
         path: "Teamslist/:id",
         element: <TeamsListDetailsPage />,
       },
@@ -100,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: "Reports",
         element: <ReportsPage />,
+      },
+      {
+        path:"Reports/:id",
+        element:<ReportsDetailsPage/>
       },
       {
         path: "/notification",

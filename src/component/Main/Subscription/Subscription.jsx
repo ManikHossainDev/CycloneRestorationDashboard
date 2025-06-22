@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Subscription = () => {
+  const id = 1;
   return (
     <div className="px-2">
       <div className="flex justify-between items-center mb-2">
@@ -45,9 +46,12 @@ const Subscription = () => {
           </div>
 
           <div className="flex gap-3 p-6 ">
-            <button className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
-              Edit
-            </button>
+            
+              <Link to={`/Subscription/${id}`} className="text-center flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+                Edit
+              </Link>
+            
+
             <button className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
               Delete
             </button>
@@ -88,9 +92,11 @@ const Subscription = () => {
           </div>
 
           <div className="flex gap-3 p-6">
-            <button className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
-              Edit
-            </button>
+        
+              <Link to={`/Subscription/${id}`}className="text-center  flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+                Edit
+              </Link>
+            
             <button className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
               Delete
             </button>
