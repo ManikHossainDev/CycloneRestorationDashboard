@@ -18,20 +18,16 @@ import EditAboutUs from "../page/EditAboutUs/EditAboutUs";
 import UserManagementPage from "../page/UserManagement/UserManagementPage";
 import AdminRoutes from "./AdminRoutes";
 import UserDetailsPage from "../page/UserDetailsPage/UserDetailsPage";
-import VendorlistPage from "../page/VendorlistPage/VendorlistPage";
-import VendorlistDetailsPage from "../page/VendorlistDetailsPage/VendorlistDetailsPage";
 import EarningsPage from "../page/EarningsPage/EarningsPage";
 import ReportsPage from "../page/ReportsPage/ReportsPage";
 import UserAgreement from "../page/UserAgreement/UserAgreement";
 import EditUserAgreement from "../page/EditUserAgreement/EditUserAgreement";
-import UploadProductPage from "../page/UploadProductPage/UploadProductPage";
-import AllProductsPage from "../page/AllProductsPage/AllProductsPage";
-import EidtProductsPage from "../page/EidtProductsPage/EidtProductsPage";
-import EditUploadCategoryPage from "../page/EditUploadCategoryPage/EditUploadCategoryPage";
-import AllCategoryPage from "../page/AllCategoryPage/AllCategoryPage";
 import MessagePage from "../page/MessagePage/MessagePage";
 import ProductRequestsPage from "../page/ProductRequestsPage/ProductRequestsPage";
 import ProductRequestsDetailsPage from "../page/ProductRequestsDetailsPage/ProductRequestsDetailsPage";
+import TeamsListDetailsPage from "../page/TeamsListDetailsPage/TeamsListDetailsPage";
+import TeamslistPage from "../page/TeamslistPage/TeamslistPage";
+import SubscriptionPage from "../page/SubscriptionPage/SubscriptionPage";
 
 const router = createBrowserRouter([
   {
@@ -72,33 +68,16 @@ const router = createBrowserRouter([
         element: <ProductRequestsDetailsPage />,
       },
       {
-        path: "Vendorlist",
-        element: <VendorlistPage />,
+        path: "Teamslist",
+        element: <TeamslistPage />,
       },
       {
-        path: "Vendorlist/:id",
-        element: <VendorlistDetailsPage />,
-      },
-      
-      {
-        path: "UploadProduct",
-        element: <UploadProductPage />,
+        path: "Subscription",
+        element: <SubscriptionPage />,
       },
       {
-        path: "AllProducts/:id",
-        element: <EidtProductsPage />,
-      },
-      {
-        path: "AllProducts",
-        element: <AllProductsPage />,
-      },
-      {
-        path: "AllCategory",
-        element: <AllCategoryPage />,
-      },
-      {
-        path: "AllCategory/:id",
-        element: <EditUploadCategoryPage />,
+        path: "Teamslist/:id",
+        element: <TeamsListDetailsPage />,
       },
       {
         path: "Message",

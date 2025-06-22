@@ -12,6 +12,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { TbMessageReport } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaRegMessage, FaUsersBetweenLines, FaUsersRectangle } from "react-icons/fa6";
+import { BiSolidCrown } from "react-icons/bi";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const navigate = useNavigate();
@@ -27,11 +28,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "/", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "/ProductRequests", label: "Product Request", icon: <FaUsersRectangle className="size-8" /> },
     { path: "/users", label: "Users", icon: <FaRegUserCircle className="size-8" /> },
-    { path: "/UploadProduct", label: "Upload Product", icon: <LuPackageOpen className="size-8" /> },
-    { path: "/Vendorlist", label: "Seller", icon: <FaUsersBetweenLines className="size-8" /> },
+    { path: "/Teamslist", label: "Teams list", icon: <FaUsersBetweenLines className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
-    { path: "/Reports", label: "Reports", icon: <TbMessageReport className="size-8" /> },
     { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },
+    { path: "/Subscription", label: "Subscription ", icon: <BiSolidCrown  className="size-7" /> },
+    { path: "/Reports", label: "Reports", icon: <TbMessageReport className="size-8" /> },
     { path: "/settings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
   ];
 
@@ -58,10 +59,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     <>
       {/* Desktop Sidebar */}
       <div className="hidden md:flex flex-col w-[320px] h-screen bg-gradient-to-b from-[#F5F9FA] to-[#48b1dbd3] fixed">
-        <div className="flex justify-center items-center pt-5">
-          <img src={LogoImage} alt="logo" className="w-[148px] h-[148px] rounded-md" />
+        <div className="flex justify-center items-center pt-3">
+          <img src={LogoImage} alt="logo" className="w-[148px] h-[120px] rounded-md" />
         </div>
-        <div className="border border-[#91C5DF] my-7"></div>
+        <div className="border border-[#91C5DF] my-3"></div>
         <div className="flex flex-col flex-grow justify-between">
           <ul className="w-[70%] mx-auto flex flex-col gap-3">{renderLinks()}</ul>
           <button

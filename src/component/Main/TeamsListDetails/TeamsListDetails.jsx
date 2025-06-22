@@ -2,7 +2,7 @@ import { Table, Button, ConfigProvider } from "antd";
 import { EyeOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-const VendorlistDetails = () => {
+const TeamsListDetails = () => {
   const user = {
     profileImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
     fullName: "Mr. Bashar Islam",
@@ -103,10 +103,10 @@ const VendorlistDetails = () => {
     <div className="">
       {/* Header */}
       <div className="flex items-center space-x-2 mb-8">
-        <Link to="/Vendorlist" className="text-gray-500 hover:text-gray-800">
+        <Link to="/Teamslist" className="text-gray-500 hover:text-gray-800">
           <LeftOutlined style={{ fontSize: 20 }} />
         </Link>
-        <h2 className="text-2xl font-semibold">Vendor list Details </h2>
+        <h2 className="text-2xl font-semibold">Teams list Details </h2>
       </div>
 
       {/* Profile */}
@@ -168,4 +168,4 @@ const VendorlistDetails = () => {
   );
 };
 
-export default VendorlistDetails;
+export default TeamsListDetails;

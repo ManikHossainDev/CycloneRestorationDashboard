@@ -3,7 +3,7 @@ import { Table, ConfigProvider, Space, Button, Select } from "antd";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const Vendorlist = () => {
+const Teamslist = () => {
   const [filter, setFilter] = useState("Month");
 
   // Example dataSource
@@ -133,7 +133,7 @@ const Vendorlist = () => {
       key: "actions",
       render: (_, record) => (
         <Space size="middle">
-          <Link to={`/Vendorlist/${record.key}`}>
+          <Link to={`/Teamslist/${record.key}`}>
             <Button
               className="bg-[#48B1DB] text-white"
               icon={<AiFillEye size={20} />}
@@ -148,7 +148,7 @@ const Vendorlist = () => {
     <div className="w-full rounded-lg ">
       {/* Header with Filter */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-xl">Vendor list</h2>
+        <h2 className="font-semibold text-xl">Teams list</h2>
         <Select
           value={filter}
           onChange={handleFilterChange}
@@ -190,4 +190,4 @@ const Vendorlist = () => {
   );
 };
 
-export default Vendorlist;
+export default Teamslist;
