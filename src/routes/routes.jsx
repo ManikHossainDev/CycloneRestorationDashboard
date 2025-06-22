@@ -28,6 +28,7 @@ import ProductRequestsDetailsPage from "../page/ProductRequestsDetailsPage/Produ
 import TeamsListDetailsPage from "../page/TeamsListDetailsPage/TeamsListDetailsPage";
 import TeamslistPage from "../page/TeamslistPage/TeamslistPage";
 import SubscriptionPage from "../page/SubscriptionPage/SubscriptionPage";
+import PaymentRequestPage from "../page/PaymentRequestPage/PaymentRequestPage";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "Teamslist",
         element: <TeamslistPage />,
+      },
+      {
+        path: "PaymentRequest",
+        element: <PaymentRequestPage />
       },
       {
         path: "Subscription",

@@ -6,86 +6,92 @@ import { Link } from "react-router-dom";
 const Teamslist = () => {
   const [filter, setFilter] = useState("Month");
 
-  // Example dataSource
+  // Updated dataSource to match the image
   const dataSource = [
     {
       key: "1",
       sl: "01",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "11 Oct 24, 11:10 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
       key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      key: "3",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      key: "4",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      key: "5",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      key: "6",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
     {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
+      key: "7",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
     },
-    // Add more items here
+    {
+      key: "8",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
+    },
+    {
+      key: "9",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
+    },
+    {
+      key: "10",
+      sl: "01",
+      teamName: "Fir Force",
+      teamLead: "Alex T.",
+      members: 4,
+      tasks: "3 Ongoing",
+    },
   ];
 
   const handleFilterChange = (value) => {
     setFilter(value);
-  };
-
-  const showModal = (user) => {
-    setSelectedUser(user);
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-    setSelectedUser(null);
   };
 
   const columns = [
@@ -95,38 +101,24 @@ const Teamslist = () => {
       key: "sl",
     },
     {
-      title: "User Name",
-      dataIndex: "userName",
-      key: "userName",
-      render: (_, record) => (
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-            <img
-              src={
-                record.userImage || "https://i.ibb.co/0C5x0zk/Ellipse-1232.png"
-              }
-              alt={record.userName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="font-medium">{record.userName}</span>
-        </div>
-      ),
+      title: "Team Name",
+      dataIndex: "teamName",
+      key: "teamName",
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: "Team Lead",
+      dataIndex: "teamLead",
+      key: "teamLead",
     },
     {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
+      title: "Members",
+      dataIndex: "members",
+      key: "members",
     },
     {
-      title: "Time & Date",
-      dataIndex: "timeAndDate",
-      key: "timeAndDate",
+      title: "Tasks",
+      dataIndex: "tasks",
+      key: "tasks",
     },
     {
       title: "Actions",
@@ -145,7 +137,7 @@ const Teamslist = () => {
   ];
 
   return (
-    <div className="w-full rounded-lg ">
+    <div className="w-full rounded-lg">
       {/* Header with Filter */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl">Teams list</h2>
@@ -161,7 +153,7 @@ const Teamslist = () => {
         />
       </div>
 
-      {/* User Table */}
+      {/* Teams Table */}
       <ConfigProvider
         theme={{
           token: {
@@ -181,7 +173,7 @@ const Teamslist = () => {
           columns={columns}
           dataSource={dataSource}
           pagination={{
-            pageSize: 5,
+            pageSize: 10,
           }}
           scroll={{ x: 1000 }}
         />

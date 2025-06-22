@@ -13,6 +13,7 @@ import { TbMessageReport } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaRegMessage, FaUsersBetweenLines, FaUsersRectangle } from "react-icons/fa6";
 import { BiSolidCrown } from "react-icons/bi";
+import { MdOutlinePayment } from "react-icons/md";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "/users", label: "Users", icon: <FaRegUserCircle className="size-8" /> },
     { path: "/Teamslist", label: "Teams list", icon: <FaUsersBetweenLines className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
+    { path: "/PaymentRequest", label: "Payment Request", icon: <MdOutlinePayment className="size-8" /> },
     { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },
     { path: "/Subscription", label: "Subscription ", icon: <BiSolidCrown  className="size-7" /> },
     { path: "/Reports", label: "Reports", icon: <TbMessageReport className="size-8" /> },

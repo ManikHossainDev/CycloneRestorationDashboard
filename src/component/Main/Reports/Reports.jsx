@@ -103,7 +103,7 @@ const Reports = () => {
   const columns = [
     { title: "#SL", dataIndex: "sl", key: "sl" },
     { title: "Reported By", dataIndex: "reportedBy", key: "reportedBy" },
-    { title: "Vendor Name", dataIndex: "vendorName", key: "vendorName" },
+    { title: "Team Name ", dataIndex: "vendorName", key: "vendorName" },
     { title: "Type", dataIndex: "type", key: "type" },
     { title: "Date", dataIndex: "date", key: "date" },
     {
