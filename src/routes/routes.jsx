@@ -29,6 +29,7 @@ import TeamsListDetailsPage from "../page/TeamsListDetailsPage/TeamsListDetailsP
 import TeamslistPage from "../page/TeamslistPage/TeamslistPage";
 import SubscriptionPage from "../page/SubscriptionPage/SubscriptionPage";
 import PaymentRequestPage from "../page/PaymentRequestPage/PaymentRequestPage";
+import AddSubscriptionPage from "../page/AddSubscriptionPage/AddSubscriptionPage";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "Subscription",
         element: <SubscriptionPage />,
+      },
+      {
+        path: "AddSubscription",
+        element: <AddSubscriptionPage />
       },
       {
         path: "Teamslist/:id",
