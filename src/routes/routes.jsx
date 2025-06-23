@@ -32,6 +32,11 @@ import PaymentRequestPage from "../page/PaymentRequestPage/PaymentRequestPage";
 import AddSubscriptionPage from "../page/AddSubscriptionPage/AddSubscriptionPage";
 import EidtSubscriptionPage from "../page/EidtSubscriptionPage/EidtSubscriptionPage";
 import ReportsDetailsPage from "../page/ReportsDetailsPage/ReportsDetailsPage.JSX";
+import TeamsLayout from "../layout/TeamsLayout";
+import TeamsHome from "../component/Teams/TeamsHome/TeamsHome";
+import RestorationTask from "../component/Teams/Taks/RestorationTask";
+import RestorationTaskDetails from "../component/Teams/Taks/RestorationTaskDetails";
+import TeamsEarnings from "../component/Teams/TeamsEarnings/TeamsEarnings";
 
 const router = createBrowserRouter([
   {
@@ -152,6 +157,31 @@ const router = createBrowserRouter([
         element: <EditAboutUs />,
       },
     ],
+  },
+  {
+    path:"/",
+    element:(
+      <TeamsLayout />
+    ),
+   errorElement: <h1>Error</h1>,
+   children:[
+    {
+        path: "Teams",
+        element: <TeamsHome />,
+    },
+    {
+      path: "Task",
+      element: <RestorationTask />
+    },
+    {
+      path:"task/:id",
+      element: <RestorationTaskDetails />
+    },
+    {
+     path:"TeamsEarnings",
+     element: <TeamsEarnings />
+    }
+   ]
   },
   {
     path: "/auth",
