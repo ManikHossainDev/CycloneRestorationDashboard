@@ -37,6 +37,9 @@ import TeamsHome from "../component/Teams/TeamsHome/TeamsHome";
 import RestorationTask from "../component/Teams/Taks/RestorationTask";
 import RestorationTaskDetails from "../component/Teams/Taks/RestorationTaskDetails";
 import TeamsEarnings from "../component/Teams/TeamsEarnings/TeamsEarnings";
+import TeamsSettings from "../component/Teams/TeamsSettings/TeamsSettings";
+import TeamsProfile from "../component/Teams/TeamsProfile/TeamsProfile";
+import TeamsMessage from "../component/Teams/teamsMessage/teamsMessage";
 
 const router = createBrowserRouter([
   {
@@ -180,6 +183,18 @@ const router = createBrowserRouter([
     {
      path:"TeamsEarnings",
      element: <TeamsEarnings />
+    },
+    {
+      path: "TeamsSettings",
+      element: <TeamsSettings />
+    },
+    {
+      path:"TeamsProfile",
+      element: <TeamsProfile />
+    },
+    {
+      path:"teamsMessage",
+      element: <TeamsMessage />
     }
    ]
   },

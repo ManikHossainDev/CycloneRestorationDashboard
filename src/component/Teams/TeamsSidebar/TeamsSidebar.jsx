@@ -29,8 +29,8 @@ const TeamsSidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "Teams", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "Task", label: "Task", icon: <MdAddTask className="size-8" /> },
     { path: "/TeamsEarnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
-    { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },
-    { path: "/settings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
+    { path: "/teamsMessage", label: "Message", icon: <FaRegMessage  className="size-7" /> },
+    { path: "/TeamsSettings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
   ];
 
   const renderLinks = () =>
