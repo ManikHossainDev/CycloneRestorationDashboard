@@ -40,6 +40,7 @@ import TeamsEarnings from "../component/Teams/TeamsEarnings/TeamsEarnings";
 import TeamsSettings from "../component/Teams/TeamsSettings/TeamsSettings";
 import TeamsProfile from "../component/Teams/TeamsProfile/TeamsProfile";
 import TeamsMessage from "../component/Teams/teamsMessage/teamsMessage";
+import AddTeamMember from "../component/Teams/AddTeamMember/AddTeamMember";
 
 const router = createBrowserRouter([
   {
@@ -195,6 +196,10 @@ const router = createBrowserRouter([
     {
       path:"teamsMessage",
       element: <TeamsMessage />
+    },
+    {
+      path: "settings/AddTeamMember",
+      element: <AddTeamMember />
     }
    ]
   },
