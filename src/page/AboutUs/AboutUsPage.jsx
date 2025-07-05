@@ -14,7 +14,7 @@ const AboutUsPage = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+        
   if (error) {
     return <div>Error loading privacy policy</div>;
   }
@@ -40,8 +40,8 @@ const AboutUsPage = () => {
         <h1  className="px-5 text-xl">
         {data?.data?.attributes[0]?.content
           ? data?.data?.attributes[0]?.content
-              .replace(/<br\s*\/?>/gi, "\n")  // Replace <br> with newlines
-              .replace(/<\/?[^>]+(>|$)/g, "")  // Remove other HTML tags
+              .replace(/<br\s*\/?>/gi, "\n")  
+              .replace(/<\/?[^>]+(>|$)/g, "")  
           : ""}
         </h1>
       </div>
