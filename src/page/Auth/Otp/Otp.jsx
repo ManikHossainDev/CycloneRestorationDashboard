@@ -14,29 +14,24 @@ const Otp = () => {
   const navigate = useNavigate();
   const [forgotPassword] = useForgotPasswordMutation();
   const [verifyOtp, { isLoading }] = useVerifyEmailMutation();
-
   const handleOtpChange = (otpValue) => {
     setOtp(otpValue);
   };
-  const handleMatchOtp = async () => {
-
+  const handleMatchOtp = async () => {    
     try {
-      const res = await verifyOtp({
-        otp,
-      });     
+      const res = await verifyOtp(otp);     
       console.log(res)
       if (res.error) {
         toast.error(res?.error?.data?.message);
       }
       if (res.data) {
         toast.success(res?.data?.message);
-        navigate(`/auth/new-password`);
+        navigate(`/auth/new-password/${otp}`);
       }
     } catch (error) {
       toast.error("Something went wrong");
     }
   };
-
   const handleResendPassword = async () => {
     try {
       const res = await forgotPassword({ email });
@@ -51,6 +46,7 @@ const Otp = () => {
       toast.error("Something went wrong");
     }
   };
+
   return (
     <div className="w-full max-w-6xl mx-auto h-full md:h-screen grid grid-cols-1 md:grid-cols-2 place-content-center  px-5 py-10 gap-8 bg-white ">
       <div className="hidden md:block">

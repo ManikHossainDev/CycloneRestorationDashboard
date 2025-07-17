@@ -1,5 +1,5 @@
 import changePasswordImage from "../../../assets/auth/changePassword.png";
-import { Link, useNavigate, } from "react-router-dom";
+import { Link, useNavigate, useParams, } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { Form } from "antd"; // Import Ant Design Form
 import CustomInput from "../../../utils/CustomInput";
@@ -8,22 +8,22 @@ import { toast } from "sonner";
 import { useResetPasswordMutation } from "../../../redux/features/auth/authApi";
 
 const NewPassword = () => {
-  // const { email } = useParams();
+  const { otp } = useParams();
+  console.log(otp);
   const navigate = useNavigate();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const submit = async (values) => {
-    const { password } = values;  // Only extract the password value
+    const { password } = values;  
 
     try {
-      // Send only the password to the server
-      const res = await resetPassword({  password:password });
+      const res = await resetPassword({  password:password, otp });
 
       if (res.error) {
         toast.error(res.error.data.message);
       }
       if (res.data) {
         toast.success(res.data.message);
-        navigate("/auth");  // Redirect to authentication page after successful reset
+        navigate("/auth");  
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -52,10 +52,10 @@ const NewPassword = () => {
         {/* Ant Design Form */}
         <Form
           layout="vertical"
-          onFinish={submit} // Ant Design's form submission handler
-          initialValues={{ password: "", confirmPassword: "" }} // Initial values
+          onFinish={submit} 
+          initialValues={{ password: "", confirmPassword: "" }} 
         >
-          {/* CustomInput wrapped inside Form.Item for validation */}
+          
           <Form.Item
             label="New Password"
             name="password"
