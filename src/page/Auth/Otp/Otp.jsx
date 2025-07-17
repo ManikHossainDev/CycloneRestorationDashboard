@@ -22,8 +22,7 @@ const Otp = () => {
 
     try {
       const res = await verifyOtp({
-        email,
-        code: otp,
+        otp,
       });     
       console.log(res)
       if (res.error) {
@@ -31,7 +30,7 @@ const Otp = () => {
       }
       if (res.data) {
         toast.success(res?.data?.message);
-        navigate(`/auth/new-password/${email}`);
+        navigate(`/auth/new-password`);
       }
     } catch (error) {
       toast.error("Something went wrong");
