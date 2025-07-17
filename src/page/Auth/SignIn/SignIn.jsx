@@ -6,8 +6,8 @@ import CustomButton from "../../../utils/CustomButton";
 import CustomInput from "../../../utils/CustomInput";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { loggedUser } from "../../../redux/features/auth/authSlice";
+import { useLoginMutation } from "../../../redux/features/auth/authApi";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -18,23 +18,25 @@ const SignIn = () => {
     const { email, password } = values;
     try {
       const res = await login({ email, password });
-      if (res.error) {
-        // Show error message if login fails
-        toast.error(res.error.data.message);
-      } else if (res.data) {
-        const user = res?.data?.data?.attributes;
-        const token = res?.data?.data?.token;
+      console.log(res);
+      if (res.data?.code === 200) {
+        const user = res?.data?.data?.attributes?.userData;
+        console.log(user, "user");
+        const token = res?.data?.data?.attributes?.authToken;
+        console.log(token, 'token'); 
         dispatch(loggedUser({ user, token }));
         toast.success(res.data.message);
-        navigate("/"); // Navigate to the root page after successful login
+        if (user?.role === "admin") {
+          navigate("/");
+        } else {
+          navigate("/team");
+        }
       }
     } catch (error) {
-      // Handle unexpected errors
-      toast.error("Something went wrong");
-      console.log(error);
+      console.log(error?.error?.data?.message);
+      toast.error(res.error.data.message);
     }
   };
-
   return (
     <section className="h-screen flex items-center justify-center ">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 p-8 rounded-md">

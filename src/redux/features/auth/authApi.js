@@ -3,7 +3,7 @@ const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
-        url: "/auth/login",
+        url: "/admin/log-in",
         method: "POST",
         body: data,
       }),
@@ -37,21 +37,19 @@ const authApi = baseApi.injectEndpoints({
     }),
     resetPassword: builder.mutation({
       query: (data) => ({
-        url: "/auth/reset-password",
+        url: "/auth/change-password-of-forgot-password",
         method: "POST",
         body: data,
       }),
     }),
     fetchDashboardData: builder.mutation({
       query: ({ token }) => {
-        console.log("Hello, token is:", token); // Log token for debugging
-
-        // Return the query object
+        console.log("Hello, token is:", token); 
         return {
           url: "/admin/v2/get-dashboard-data",
           method: "GET",
           headers: {
-            Authorization: token, // Use the token passed as a parameter
+            Authorization: token, 
           },
         };
       },
@@ -61,7 +59,6 @@ const authApi = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
-  useRegisterMutation,
   useLogoutMutation,
   useForgotPasswordMutation,
   useVerifyEmailMutation,

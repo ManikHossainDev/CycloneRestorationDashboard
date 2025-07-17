@@ -1,21 +1,16 @@
 /* eslint-disable react/prop-types */
-// AdminRoutes.js
+// TeamsRoutes.js
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const AdminRoutes = ({ children }) => {
+const TeamsRoutes = ({ children }) => {
 
   const { user } = useSelector(state=>state?.auth);
-  console.log(user);
-  const isAdmin = user && user.role === "admin";
+  const isAdmin = user && user.role === "team";
   if (!isAdmin) {
     return <Navigate to="/auth" replace />;
   }
-
   return <>{children}</>;
 };
 
-export default AdminRoutes;
-
-
-
+export default TeamsRoutes;

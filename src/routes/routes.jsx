@@ -41,14 +41,15 @@ import TeamsSettings from "../component/Teams/TeamsSettings/TeamsSettings";
 import TeamsProfile from "../component/Teams/TeamsProfile/TeamsProfile";
 import TeamsMessage from "../component/Teams/teamsMessage/teamsMessage";
 import AddTeamMember from "../component/Teams/AddTeamMember/AddTeamMember";
+import TeamsRoutes from "./TeamsRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      // <AdminRoutes>
+      <AdminRoutes>
       <MainLayout />
-      // </AdminRoutes>
+      </AdminRoutes>
     ),
     errorElement: <h1>Error</h1>,
     children: [
@@ -165,7 +166,9 @@ const router = createBrowserRouter([
   {
     path:"/",
     element:(
-      <TeamsLayout />
+      <TeamsRoutes>
+        <TeamsLayout />
+      </TeamsRoutes>
     ),
    errorElement: <h1>Error</h1>,
    children:[
