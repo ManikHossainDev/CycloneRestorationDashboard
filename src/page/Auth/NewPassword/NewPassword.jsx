@@ -55,7 +55,6 @@ const NewPassword = () => {
           onFinish={submit} 
           initialValues={{ password: "", confirmPassword: "" }} 
         >
-          
           <Form.Item
             label="New Password"
             name="password"
