@@ -1,5 +1,5 @@
 import changePasswordImage from "../../../assets/auth/changePassword.png";
-import { Link, useNavigate, useParams, } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams, } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { Form } from "antd"; // Import Ant Design Form
 import CustomInput from "../../../utils/CustomInput";
@@ -8,15 +8,17 @@ import { toast } from "sonner";
 import { useResetPasswordMutation } from "../../../redux/features/auth/authApi";
 
 const NewPassword = () => {
-  const { otp } = useParams();
-  console.log(otp);
+   const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const otp = queryParams.get('otp');
+  console.log(`thise useparams otp get then show`, otp);
   const navigate = useNavigate();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const submit = async (values) => {
     const { password } = values;  
 
     try {
-      const res = await resetPassword({  password:password, otp });
+      const res = await resetPassword({  new_password:password, otp });
 
       if (res.error) {
         toast.error(res.error.data.message);

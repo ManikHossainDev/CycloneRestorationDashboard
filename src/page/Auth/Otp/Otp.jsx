@@ -26,7 +26,7 @@ const Otp = () => {
       }
       if (res.data) {
         toast.success(res?.data?.message);
-        navigate(`/auth/new-password/${otp}`);
+        navigate(`/auth/new-password/otp?otp=${otp}`);
       }
     } catch (error) {
       toast.error("Something went wrong");

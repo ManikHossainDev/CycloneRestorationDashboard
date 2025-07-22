@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { loggedUser } from "../../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 
+
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SignIn = () => {
     const { email, password } = values;
     try {
       const res = await login({ email, password });
-      console.log(res);
+      console.log(res)
       if (res.data?.code === 200) {
         const user = res?.data?.data?.attributes?.userData;
         console.log(user, "user");

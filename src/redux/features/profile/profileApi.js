@@ -22,11 +22,10 @@ const profileApi = baseApi.injectEndpoints({
     }),
     changePassword: builder.mutation({
       query: (data) => ({
-        url: "/auth/change-password",
+        url: "/auth/change-password-in-settings",
         method: "POST",
         body: data,
       }),
-      // transformResponse: (response) => response.data,
     }),
   }),
 });

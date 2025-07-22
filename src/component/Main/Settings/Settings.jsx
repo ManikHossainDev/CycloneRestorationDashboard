@@ -36,8 +36,7 @@ const Settings = () => {
     (state) => state.auth.changePasswordToken
   );
   //change password useing old password rtk query api
-  const [changePassWithOldPass, { isLoading: changePasswordLoading }] =
-    useChangePasswordMutation();
+  const [changePassWithOldPass, { isLoading: changePasswordLoading }] = useChangePasswordMutation();
   // //forgot password rtk query api
   const [forgotPassword, { isLoading: forgotPasswordLoading }] =
     useForgotPasswordMutation();
@@ -46,14 +45,12 @@ const Settings = () => {
   // //verify opt rtk query api
   const [verifyOtp, { isLoading: verifyOtpLoading }] = useVerifyEmailMutation();
   // //change password rtk query api
-  const [ResetPassword, { isLoading: resetPassLoading }] =
-    useResetPasswordMutation();
+  const [ResetPassword, { isLoading: resetPassLoading }] = useResetPasswordMutation();
   // console.log(changePassRes)
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
   };
-
   const handleNavigate = (value) => {
     if (value === "notification") {
       return;
@@ -67,7 +64,7 @@ const Settings = () => {
   const handleChangePassword = async (values) => {
     console.log(values);
     const { oldPassword, newPassword } = values;
-    const data = { oldPassword, newPassword, };
+    const data = {  new_password:newPassword, };
     try {
       const res = await changePassWithOldPass(data);
       console.log(res);
@@ -254,9 +251,9 @@ const Settings = () => {
               </Form.Item>
               <p className=" text-secondary font-medium">
                 <button onClick={() => setModelTitle("Forget password")}>
-                  <h1 className="underline text-[#48B1DB]">
+                  {/* <h1 className="underline text-[#48B1DB]">
                     {t("Forget Password")}
-                  </h1>
+                  </h1> */}
                 </button>
               </p>
               <Form.Item>
