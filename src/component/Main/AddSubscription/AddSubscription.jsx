@@ -1,51 +1,56 @@
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
+import { useCreateSubscriptionMutation } from "../../../redux/features/Subscription/Subscription";
 
 const AddSubscription = () => {
   const [formData, setFormData] = useState({
     subscriptionName: "",
     subscriptionPrice: "",
     subscriptionDuration: "",
-    additionalFields: [""]
+    additionalFields: [""],
   });
 
   const handleSelectChange = (field, value) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleInputChange = (index, value) => {
     const newFields = [...formData.additionalFields];
     newFields[index] = value;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      additionalFields: newFields
+      additionalFields: newFields,
     }));
   };
 
   const addField = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      additionalFields: [...prev.additionalFields, ""]
+      additionalFields: [...prev.additionalFields, ""],
     }));
   };
 
   const removeField = (index) => {
     if (formData.additionalFields.length > 1) {
       const newFields = formData.additionalFields.filter((_, i) => i !== index);
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        additionalFields: newFields
+        additionalFields: newFields,
       }));
     }
   };
 
-  const handleSave = () => {
-    console.log("Form Data:", formData);
-    // Add your save logic here
-    alert("Subscription saved successfully!");
+  const [AddSubscription] = useCreateSubscriptionMutation();
+
+  const handleSave = async () => {
+    try {
+      const res = await AddSubscription();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -59,7 +64,9 @@ const AddSubscription = () => {
           <div className="relative">
             <select
               value={formData.subscriptionName}
-              onChange={(e) => handleSelectChange('subscriptionName', e.target.value)}
+              onChange={(e) =>
+                handleSelectChange("subscriptionName", e.target.value)
+              }
               className="w-full px-4 py-3 border border-cyan-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent appearance-none"
             >
               <option value="">Type name</option>
@@ -68,8 +75,18 @@ const AddSubscription = () => {
               <option value="enterprise">Enterprise Plan</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
@@ -83,7 +100,9 @@ const AddSubscription = () => {
           <div className="relative">
             <select
               value={formData.subscriptionPrice}
-              onChange={(e) => handleSelectChange('subscriptionPrice', e.target.value)}
+              onChange={(e) =>
+                handleSelectChange("subscriptionPrice", e.target.value)
+              }
               className="w-full px-4 py-3 border border-cyan-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent appearance-none"
             >
               <option value="">Type price</option>
@@ -93,8 +112,18 @@ const AddSubscription = () => {
               <option value="49.99">$49.99</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
@@ -108,7 +137,9 @@ const AddSubscription = () => {
           <div className="relative">
             <select
               value={formData.subscriptionDuration}
-              onChange={(e) => handleSelectChange('subscriptionDuration', e.target.value)}
+              onChange={(e) =>
+                handleSelectChange("subscriptionDuration", e.target.value)
+              }
               className="w-full px-4 py-3 border border-cyan-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent appearance-none"
             >
               <option value="">Type duration</option>
@@ -117,8 +148,18 @@ const AddSubscription = () => {
               <option value="yearly">Yearly</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
@@ -146,14 +187,15 @@ const AddSubscription = () => {
                   </button>
                 )}
                 {/* Remove button - show on all fields except the last one, and only when there's more than one field */}
-                {formData.additionalFields.length > 1 && index !== formData.additionalFields.length - 1 && (
-                  <button
-                    onClick={() => removeField(index)}
-                    className="w-10 h-10 bg-red-400 hover:bg-red-500 text-white rounded-full flex items-center justify-center transition-colors flex-shrink-0"
-                  >
-                    <X size={18} />
-                  </button>
-                )}
+                {formData.additionalFields.length > 1 &&
+                  index !== formData.additionalFields.length - 1 && (
+                    <button
+                      onClick={() => removeField(index)}
+                      className="w-10 h-10 bg-red-400 hover:bg-red-500 text-white rounded-full flex items-center justify-center transition-colors flex-shrink-0"
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
               </div>
             </div>
           ))}
