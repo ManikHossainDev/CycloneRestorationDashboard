@@ -4,21 +4,21 @@ const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
      query: () => ({
-        url: '/auth/fighter', // Replace with the actual endpoint for fetching users
+        url: '/user/get-user-list', 
         method: 'GET',
       }),
       transformResponse: (response) => response.data,
     }),
     getEventManager: builder.query({
      query: () => ({
-        url: '/auth/eventManager', // Replace with the actual endpoint for fetching users
+        url: '/auth/eventManager', 
         method: 'GET',
       }),
       transformResponse: (response) => response.data,
     }),
     getRecentUser: builder.query({
      query: () => ({
-        url: '/auth/recentUser', // Replace with the actual endpoint for fetching users
+        url: '/auth/recentUser', 
         method: 'GET',
       }),
       transformResponse: (response) => response.data,

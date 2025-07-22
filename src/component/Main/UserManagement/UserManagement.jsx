@@ -2,91 +2,30 @@ import { useState } from "react";
 import { Table, ConfigProvider, Space, Button, Select } from "antd";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useGetAllUsersQuery } from "../../../redux/features/user/userApi";
+import dayjs from "dayjs"; // For formatting date/time
 
 const UserManagement = () => {
-  const [filter, setFilter] = useState("Month");
+  const { data } = useGetAllUsersQuery();
+  const allUsers =  data?.attributes?.data;
 
-  // Example dataSource
-  const dataSource = [
-    {
-      key: "1",
-      sl: "01",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "11 Oct 24, 11:10 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png", // User image URL
-    },
-    // Add more items here
-  ];
+  const [filter, setFilter] = useState("Month");
 
   const handleFilterChange = (value) => {
     setFilter(value);
   };
 
-  const showModal = (user) => {
-    setSelectedUser(user);
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-    setSelectedUser(null);
-  };
+  // Transform the API response to table format
+  const dataSource = allUsers?.map((user, index) => ({
+    key: user._id,
+    sl: String(index + 1).padStart(2, "0"),
+    userName: user.name,
+    email: user.email,
+    address: user.address,
+    phone: user.phone || "N/A",
+    timeAndDate: dayjs(user.createdAt).format("DD MMM YY, hh:mm A"),
+    userImage: user.profilePictureUrl || "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
+  })) || [];
 
   const columns = [
     {
@@ -102,9 +41,7 @@ const UserManagement = () => {
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
             <img
-              src={
-                record.userImage || "https://i.ibb.co/0C5x0zk/Ellipse-1232.png"
-              }
+              src={record.userImage}
               alt={record.userName}
               className="w-full h-full object-cover"
             />
@@ -124,6 +61,11 @@ const UserManagement = () => {
       key: "phone",
     },
     {
+      title: " Address",
+      dataIndex: "address",
+      key:"address"
+    },
+    {
       title: "Time & Date",
       dataIndex: "timeAndDate",
       key: "timeAndDate",
@@ -137,7 +79,7 @@ const UserManagement = () => {
             <Button
               className="bg-[#48B1DB] text-white"
               icon={<AiFillEye size={20} />}
-            ></Button>
+            />
           </Link>
         </Space>
       ),
@@ -145,8 +87,7 @@ const UserManagement = () => {
   ];
 
   return (
-    <div className="w-full rounded-lg ">
-      {/* Header with Filter */}
+    <div className="w-full rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl">User List</h2>
         <Select
@@ -161,8 +102,6 @@ const UserManagement = () => {
         />
       </div>
 
-     <div>
-       {/* User Table */}
       <ConfigProvider
         theme={{
           token: {
@@ -181,13 +120,11 @@ const UserManagement = () => {
         <Table
           columns={columns}
           dataSource={dataSource}
-          pagination={{
-            pageSize: 5,
-          }}
+          pagination={{ pageSize: 5 }}
           scroll={{ x: 1000 }}
+          loading={!allUsers}
         />
       </ConfigProvider>
-     </div>
     </div>
   );
 };
