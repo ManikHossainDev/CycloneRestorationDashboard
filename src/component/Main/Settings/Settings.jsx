@@ -68,7 +68,8 @@ const Settings = () => {
     try {
       const res = await changePassWithOldPass(data);
       console.log(res);
-      if(res?.data?.code === 200){
+      if(res?.data){
+
         message.success(res?.data?.message)
         setIsModalOpen(false);
       }
@@ -184,7 +185,7 @@ const Settings = () => {
               className="space-y-4 fit-content object-contain"
               onFinish={handleChangePassword}
             >
-              <Form.Item
+              {/* <Form.Item
                 name="oldPassword"
                 rules={[
                   {
@@ -200,7 +201,7 @@ const Settings = () => {
                   name="oldPassword"
                   className="w-full px-3 py-2"
                 />
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item
                 name="newPassword"
