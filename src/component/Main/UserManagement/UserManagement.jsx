@@ -9,7 +9,7 @@ const UserManagement = () => {
   const { data } = useGetAllUsersQuery();
   const allUsers =  data?.attributes?.data;
 
-  const [filter, setFilter] = useState("Month");
+
 
   const handleFilterChange = (value) => {
     setFilter(value);
@@ -90,16 +90,7 @@ const UserManagement = () => {
     <div className="w-full rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl">User List</h2>
-        <Select
-          value={filter}
-          onChange={handleFilterChange}
-          options={[
-            { value: "Month", label: "Filter: Month" },
-            { value: "Week", label: "Filter: Week" },
-            { value: "Year", label: "Filter: Year" },
-          ]}
-          className="w-32"
-        />
+        
       </div>
 
       <ConfigProvider
