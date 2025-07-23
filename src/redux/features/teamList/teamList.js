@@ -8,7 +8,14 @@ const teamList = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => response.data,
     }),
+    getSingleTeam: builder.query({
+     query: (id) => ({
+        url: `/team/get-team-details?id=${id}`, 
+        method: 'GET',
+      }),
+      transformResponse: (response) => response.data,
+    }),
   }),
 });
 
-export const { useGetAllTeamsQuery } = teamList;
+export const { useGetAllTeamsQuery, useGetSingleTeamQuery } = teamList;

@@ -17,7 +17,7 @@ const UserManagement = () => {
 
   // Transform the API response to table format
   const dataSource = allUsers?.map((user, index) => ({
-    key: user._id,
+    key: user.id,
     sl: String(index + 1).padStart(2, "0"),
     userName: user.name,
     email: user.email,

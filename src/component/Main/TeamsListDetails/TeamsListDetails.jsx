@@ -1,8 +1,13 @@
 import { Table, Button, ConfigProvider } from "antd";
 import { EyeOutlined, LeftOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useGetSingleTeamQuery } from "../../../redux/features/teamList/teamList";
 
 const TeamsListDetails = () => {
+  const { id } = useParams;
+  console.log(id)
+  const {data} = useGetSingleTeamQuery(id)
+  console.log(data)
   const user = {
     profileImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
     fullName: "Mr. Bashar Islam",

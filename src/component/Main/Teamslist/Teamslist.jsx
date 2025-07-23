@@ -18,7 +18,7 @@ const Teamslist = () => {
 
   // Convert API response to table format
   const dataSource = allTeams.map((team, index) => ({
-    key: team._id,
+    key: team.id,
     sl: String(index + 1).padStart(2, "0"),
     teamName: team.name,
     teamLead: team.email, 

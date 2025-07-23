@@ -9,9 +9,9 @@ const userApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => response.data,
     }),
-    getEventManager: builder.query({
-     query: () => ({
-        url: '/auth/eventManager', 
+    getSingleUser: builder.query({
+     query: (id) => ({
+        url: `/user/get-user-details?id=${id}`, 
         method: 'GET',
       }),
       transformResponse: (response) => response.data,
@@ -26,4 +26,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useGetEventManagerQuery, useGetRecentUserQuery } = userApi;
+export const { useGetAllUsersQuery, useGetSingleUserQuery, useGetRecentUserQuery } = userApi;

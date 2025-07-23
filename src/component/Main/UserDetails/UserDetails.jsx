@@ -1,8 +1,13 @@
 import { Button, } from "antd";
 import { EyeOutlined, LeftOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useGetSingleUserQuery } from "../../../redux/features/user/userApi";
 
 const UserDetails = () => {
+  const {id} = useParams()
+  console.log(id)
+  const {data} = useGetSingleUserQuery(id)
+  console.log(data)
   const user = {
     profileImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
     fullName: "Mr. Bashar Islam",

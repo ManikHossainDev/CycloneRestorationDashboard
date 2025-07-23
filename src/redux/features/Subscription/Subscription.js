@@ -12,7 +12,7 @@ const Subscription = baseApi.injectEndpoints({
     }),
     createSubscription : builder.mutation({
      query: (data) => ({
-        url:"",
+        url:"/subscription/create-subscription-package",
         method: "POST",
         body: data,
      })   
