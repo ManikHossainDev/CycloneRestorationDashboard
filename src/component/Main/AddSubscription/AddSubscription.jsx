@@ -35,12 +35,16 @@ const AddSubscription = () => {
   };
 
   const addField = (e) => {
-    e.preventDefault();
-    setFormData((prev) => ({
-      ...prev,
-      additionalFields: [...prev.additionalFields, ""],
-    }));
-  };
+  e.preventDefault();
+  if (formData.additionalFields.length >= 5) {
+    toast.warning("You can add up to 5 features only.");
+    return;
+  }
+  setFormData((prev) => ({
+    ...prev,
+    additionalFields: [...prev.additionalFields, ""],
+  }));
+};
 
   const removeField = (e, index) => {
     e.preventDefault();
