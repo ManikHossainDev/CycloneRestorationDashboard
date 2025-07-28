@@ -166,9 +166,9 @@ const router = createBrowserRouter([
   {
     path:"/",
     element:(
-      <TeamsRoutes>
+      // <TeamsRoutes>
+      // </TeamsRoutes>
         <TeamsLayout />
-      </TeamsRoutes>
     ),
    errorElement: <h1>Error</h1>,
    children:[

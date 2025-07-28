@@ -1,15 +1,6 @@
-import { build } from "vite";
 import { baseApi } from "../../baseApi/baseApi";
-
 const Subscription = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    deleteSubscription: build.mutation({
-      query: (id) => ({
-        url: `/subscription/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Subscription"],
-    }),
     getSubscription: builder.query({
       query: () => ({
         url: "/subscription/get-subscription-packages",
@@ -26,8 +17,33 @@ const Subscription = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Subscription"],
     }),
+    deleteSubscription: builder.mutation({
+      query: (id) => ({
+        url: `/subscription/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Subscription"],
+    }),
+    singleSubscription: builder.query({
+      query: (id) => ({
+        url: `/subscription/${id}`,
+        method: "GET",
+      }),
+    }),
+    updateSubscription: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/subscription/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetSubscriptionQuery, useCreateSubscriptionMutation } =
-  Subscription;
+export const {
+  useGetSubscriptionQuery,
+  useCreateSubscriptionMutation,
+  useDeleteSubscriptionMutation,
+  useSingleSubscriptionQuery,
+  useUpdateSubscriptionMutation,
+} = Subscription;

@@ -20,17 +20,19 @@ const SignIn = () => {
     try {
       const res = await login({ email, password });
       console.log(res)
-      if (res.data?.code === 200) {
-        const user = res?.data?.data?.attributes?.userData;
+      // console.log(res?.data?.data?.authToken)
+      if (res?.data?.success === true) {
+        const user = res?.data?.data?.user;
         console.log(user, "user");
-        const token = res?.data?.data?.attributes?.authToken;
+        const token = res?.data?.data?.authToken;
         console.log(token, 'token'); 
         dispatch(loggedUser({ user, token }));
         toast.success(res.data.message);
         if (user?.role === "admin") {
           navigate("/");
-        } else {
-          navigate("/team");
+        }
+        if (user?.role === "team"){
+          navigate("/teams");
         }
       }
     } catch (error) {
