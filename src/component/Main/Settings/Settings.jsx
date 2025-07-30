@@ -185,23 +185,7 @@ const Settings = () => {
               className="space-y-4 fit-content object-contain"
               onFinish={handleChangePassword}
             >
-              {/* <Form.Item
-                name="oldPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Old Password!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Enter Your old Password"
-                  name="oldPassword"
-                  className="w-full px-3 py-2"
-                />
-              </Form.Item> */}
+              
 
               <Form.Item
                 name="newPassword"
