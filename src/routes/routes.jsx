@@ -42,6 +42,9 @@ import TeamsProfile from "../component/Teams/TeamsProfile/TeamsProfile";
 import TeamsMessage from "../component/Teams/teamsMessage/teamsMessage";
 import AddTeamMember from "../component/Teams/AddTeamMember/AddTeamMember";
 import TeamsRoutes from "./TeamsRoutes";
+import ManagerLayout from "../layout/ManagerLayout";
+import ManagerRoutes from "./ManagerRoutes";
+import ManagerDashboard from "../component/Manager/ManagerDashboard/ManagerDashboard";
 
 const router = createBrowserRouter([
   {
@@ -205,6 +208,21 @@ const router = createBrowserRouter([
       element: <AddTeamMember />
     }
    ]
+  },
+  {
+    path: "/",
+    element:(
+      <ManagerLayout />
+      // <ManagerRoutes>
+      // </ManagerRoutes>
+    ),
+    errorElement: <h1>Error</h1>,
+    children: [
+      {
+        path: "Manager",
+        element: <ManagerDashboard />,
+      },
+    ],
   },
   {
     path: "/auth",
