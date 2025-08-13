@@ -1,4 +1,4 @@
-import ProductRequests from "../../component/Main/VendorRequests/ProductRequests";
+import ProductRequests from "../../component/Main/RepairRequest/ProductRequests";
 
 
 const ProductRequestsPage = () => {

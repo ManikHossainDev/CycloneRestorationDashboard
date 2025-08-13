@@ -27,7 +27,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
-    { path: "/ProductRequests", label: "Product Request", icon: <FaUsersRectangle className="size-8" /> },
+    { path: "/RepairRequest", label: "Repair Request", icon: <FaUsersRectangle className="size-8" /> },
     { path: "/users", label: "Users", icon: <FaRegUserCircle className="size-8" /> },
     { path: "/Teamslist", label: "Teams list", icon: <FaUsersBetweenLines className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },

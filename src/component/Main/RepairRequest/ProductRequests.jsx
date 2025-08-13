@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Pagination, Button } from "antd";
 import { Link } from "react-router-dom";
 
@@ -67,6 +67,8 @@ const data = [
 ];
 
 const ProductRequests = () => {
+  
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
@@ -156,11 +158,12 @@ const ProductRequests = () => {
                     <h1 className="font-medium">Location</h1>
                     <span className="text-gray-500">Uk</span>
                   </div>
-                  {/* <div className="text-sm sm:text-base md:text-sm lg:text-lg lg:text-center">
-                    <h1 className="font-medium">Product</h1>
-                    <span className="text-gray-500">{record.productList}</span>
-                  </div> */}
-                  <Link to={`/ProductRequests/${record.id}`}>
+                  <div className="text-sm sm:text-base md:text-base lg:text-lg">
+                    <h1 className="font-medium">Status</h1>
+                    <span className="text-gray-500">In Progress</span>
+                  </div>
+                  {/* need id pass */}
+                  <Link to={`/RepairRequest/${record.id}`}>
                     <Button
                       type="primary"
                       className="h-12 text-xs sm:text-sm md:text-base w-full sm:w-auto lg:px-2 md:px-0 bg-[#48B1DB]"

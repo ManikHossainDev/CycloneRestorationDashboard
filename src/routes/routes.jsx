@@ -45,6 +45,11 @@ import TeamsRoutes from "./TeamsRoutes";
 import ManagerLayout from "../layout/ManagerLayout";
 import ManagerRoutes from "./ManagerRoutes";
 import ManagerDashboard from "../component/Manager/ManagerDashboard/ManagerDashboard";
+import RepairRequest from "../component/Manager/RepairRequest/RepairRequest";
+import Member from "../component/Manager/Member/Member";
+import ManagerMessage from "../component/Manager/ManagerMessage/ManagerMessage";
+import ManagerSettings from "../component/Manager/ManagerSettings/ManagerSettings";
+import RepairRequestsDetails from "../component/Manager/RepairRequestsDetails/RepairRequestsDetails";
 
 const router = createBrowserRouter([
   {
@@ -77,11 +82,11 @@ const router = createBrowserRouter([
         element: <EditPersonalInformationPage />,
       },
       {
-        path: "ProductRequests",
+        path: "RepairRequest",
         element: <ProductRequestsPage />,
       },
       {
-        path: "ProductRequests/:id",
+        path: "RepairRequest/:id",
         element: <ProductRequestsDetailsPage />,
       },
       {
@@ -221,6 +226,26 @@ const router = createBrowserRouter([
       {
         path: "Manager",
         element: <ManagerDashboard />,
+      },
+      {
+        path: "ManagerRepairRequest",
+        element: <RepairRequest />,
+      },
+      {
+        path: "ManagerProductRequests/:id",
+        element: <RepairRequestsDetails />,
+      },
+      {
+        path: "Member",
+        element: <Member />,
+      },
+      {
+        path: "ManagerMessage",
+        element: <ManagerMessage />,
+      },
+      {
+        path: "ManagerSettings",
+        element: <ManagerSettings />,
       },
     ],
   },

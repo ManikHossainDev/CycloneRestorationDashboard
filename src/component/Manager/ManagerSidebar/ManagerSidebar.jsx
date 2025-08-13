@@ -24,7 +24,7 @@ const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   const navItems = [
     { path: "Manager", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
-    { path: "RepairRequest", label: "Repair Request", icon: <MdAddTask className="size-8" /> },
+    { path: "ManagerRepairRequest", label: "Repair Request", icon: <MdAddTask className="size-8" /> },
     { path: "/Member", label: "Members", icon: <FaUsers className="size-8" /> },
     { path: "/ManagerMessage", label: "Message", icon: <FaRegMessage  className="size-7" /> },
     { path: "/ManagerSettings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
@@ -36,7 +36,7 @@ const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
         to={path}
         key={path}
         onClick={() => {
-          if (isSidebarOpen) toggleSidebar(); // Close sidebar on mobile
+          if (isSidebarOpen) toggleSidebar(); 
         }}
         className={({ isActive }) =>
           `px-2 py-2 flex items-center gap-3 rounded-md transition-all ${
