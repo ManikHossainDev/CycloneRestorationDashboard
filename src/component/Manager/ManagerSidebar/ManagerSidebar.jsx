@@ -2,18 +2,15 @@
 /* eslint-disable react/prop-types */
 import { IoIosLogOut } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import { LuLayoutDashboard, LuPackageOpen } from "react-icons/lu";
+import { LuLayoutDashboard, } from "react-icons/lu";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../redux/features/auth/authSlice";
 import LogoImage from "../../../assets/auth/Logo.png";
 import { useState } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
-import { TbMessageReport } from "react-icons/tb";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { FaRegMessage, FaUsersBetweenLines, FaUsersRectangle } from "react-icons/fa6";
-import { BiSolidCrown } from "react-icons/bi";
-import { MdAddTask, MdOutlinePayment } from "react-icons/md";
+import { FaRegMessage,} from "react-icons/fa6";
+import { FaUsers } from "react-icons/fa6";
+import { MdAddTask,  } from "react-icons/md";
 
 const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const navigate = useNavigate();
@@ -26,11 +23,11 @@ const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
   };
 
   const navItems = [
-    { path: "Teams", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
-    { path: "Task", label: "Task", icon: <MdAddTask className="size-8" /> },
-    { path: "/TeamsEarnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
-    { path: "/teamsMessage", label: "Message", icon: <FaRegMessage  className="size-7" /> },
-    { path: "/TeamsSettings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
+    { path: "Manager", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
+    { path: "RepairRequest", label: "Repair Request", icon: <MdAddTask className="size-8" /> },
+    { path: "/Member", label: "Members", icon: <FaUsers className="size-8" /> },
+    { path: "/ManagerMessage", label: "Message", icon: <FaRegMessage  className="size-7" /> },
+    { path: "/ManagerSettings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
   ];
 
   const renderLinks = () =>
