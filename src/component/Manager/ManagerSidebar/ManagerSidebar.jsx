@@ -52,7 +52,7 @@ const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex flex-col w-[320px] h-screen bg-gradient-to-b from-[#F5F9FA] to-[#48b1dbd3] fixed">
+      <div className="hidden md:flex flex-col md:w-[250px] lg:w-[320px] h-screen bg-gradient-to-b from-[#F5F9FA] to-[#48b1dbd3] fixed">
         <div className="flex justify-center items-center pt-3">
           <img src={LogoImage} alt="logo" className="w-[148px] h-[120px] rounded-md" />
         </div>

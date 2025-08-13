@@ -131,7 +131,7 @@ const RecentTransactions = () => {
           columns={columns}
           dataSource={dataSource}
           pagination={false}
-          scroll={{ x: 1000 }}
+          scroll={{ x:800 }}
         />
       </ConfigProvider>
 
