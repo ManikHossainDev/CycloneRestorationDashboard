@@ -50,6 +50,7 @@ import Member from "../component/Manager/Member/Member";
 import ManagerMessage from "../component/Manager/ManagerMessage/ManagerMessage";
 import ManagerSettings from "../component/Manager/ManagerSettings/ManagerSettings";
 import RepairRequestsDetails from "../component/Manager/RepairRequestsDetails/RepairRequestsDetails";
+import ContractorList from "../component/Manager/Contractor/ContractorList";
 
 const router = createBrowserRouter([
   {
@@ -238,6 +239,10 @@ const router = createBrowserRouter([
       {
         path: "Member",
         element: <Member />,
+      },
+      {
+        path: "Contractor",
+        element: <ContractorList />,
       },
       {
         path: "ManagerMessage",

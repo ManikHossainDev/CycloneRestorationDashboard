@@ -83,7 +83,7 @@ const RepairRequest = () => {
   return (
     <div className="w-full mx-auto px-2  py-6 md:py-2">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 md:gap-6 lg:gap-8">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+        <h1 className="text-2xl md:text-3xl  font-semibold">
            Repair  Request List
         </h1>
         <div className="flex items-center bg-blue-100 p-2 rounded w-full sm:w-auto max-w-xs lg:max-w-xs">

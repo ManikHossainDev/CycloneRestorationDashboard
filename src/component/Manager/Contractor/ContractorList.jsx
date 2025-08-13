@@ -4,14 +4,14 @@ import { AiFillEye } from "react-icons/ai";
 
 // Assuming the image URLs (this could be an array of images or paths to files)
 const userImages = [
-  '/mnt/data/5d4e3300-d3b8-4c63-9f21-41b1b9cf1cbb.png', // Your uploaded image
+  '/mnt/data/5d4e3300-d3b8-4c63-9f21-41b1b9cf1cbb.png', 
   'https://randomuser.me/api/portraits/men/1.jpg',
   'https://randomuser.me/api/portraits/women/1.jpg',
   'https://randomuser.me/api/portraits/men/2.jpg',
   'https://randomuser.me/api/portraits/women/2.jpg'
 ];
 
-const Member = () => {
+const ContractorList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
@@ -106,4 +106,4 @@ const Member = () => {
   );
 };
 
-export default Member;
+export default ContractorList;
