@@ -160,7 +160,7 @@ const RecentNewMember = () => {
           columns={columns}
           dataSource={dataSource}
           pagination={false}
-          scroll={{ x: 400 }}
+          scroll={{ x: 800 }}
           className="shadow-sm"
         />
       </ConfigProvider>
@@ -176,7 +176,7 @@ const RecentNewMember = () => {
       >
         <div className="text-black p-2">
           <h1 className="text-center text-xl font-semibold my-4 text-gray-700">
-            Contractor Details
+            Member Details
           </h1>
           <div className="p-4 bg-gray-50 rounded-lg">
             <div className="flex justify-between py-3 border-b border-gray-300">

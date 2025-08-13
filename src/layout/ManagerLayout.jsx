@@ -14,7 +14,7 @@ const ManagerLayout = () => {
     <main className="w-full min-h-screen flex bg-[#FEFFFE] ">
       <ManagerSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       {/* Main Content */}
-      <section className="w-full h-full md:ml-[320px] px-2 md:px-0">
+      <section className="w-full h-full md:ml-[250px] lg:ml-[320px] px-2 md:px-0">
         <Header toggleSidebar={toggleSidebar} />
         <div className="py-5 md:px-5">
           <Outlet />
