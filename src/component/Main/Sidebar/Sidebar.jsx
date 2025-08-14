@@ -11,7 +11,7 @@ import { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { TbMessageReport } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { FaRegMessage, FaUsersBetweenLines, FaUsersRectangle } from "react-icons/fa6";
+import { FaRegMessage, FaUsersBetweenLines, FaUsersGear, FaUsersRectangle } from "react-icons/fa6";
 import { BiSolidCrown } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 
@@ -28,8 +28,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const navItems = [
     { path: "/", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "/RepairRequest", label: "Repair Request", icon: <FaUsersRectangle className="size-8" /> },
-    { path: "/users", label: "Users", icon: <FaRegUserCircle className="size-8" /> },
+    { path: "/users", label: "Member", icon: <FaRegUserCircle className="size-8" /> },
     { path: "/Teamslist", label: "Contractor List", icon: <FaUsersBetweenLines className="size-8" /> },
+    { path: "/Managerlist", label: "Manager List", icon: <FaUsersGear className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
     { path: "/PaymentRequest", label: "Payment Request", icon: <MdOutlinePayment className="size-8" /> },
     { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },

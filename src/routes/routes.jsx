@@ -51,6 +51,8 @@ import ManagerMessage from "../component/Manager/ManagerMessage/ManagerMessage";
 import ManagerSettings from "../component/Manager/ManagerSettings/ManagerSettings";
 import RepairRequestsDetails from "../component/Manager/RepairRequestsDetails/RepairRequestsDetails";
 import ContractorList from "../component/Manager/Contractor/ContractorList";
+import ManagerPage from "../page/ManagerPage/ManagerPage";
+import ServicePage from "../page/ServicePage/ServicePage";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +75,14 @@ const router = createBrowserRouter([
       {
         path: "/users/:id",
         element: <UserDetailsPage />,
+      },
+      {
+        path: "/Managerlist",
+        element: <ManagerPage />,
+      },
+      {
+        path: "Service",
+        element: <ServicePage />,
       },
       {
         path: "personal-info",
