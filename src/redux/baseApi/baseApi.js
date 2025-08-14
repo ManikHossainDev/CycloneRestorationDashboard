@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://aminul5000.sobhoy.com",
+    baseUrl: "https://apicyclone.sobhoy.com",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
