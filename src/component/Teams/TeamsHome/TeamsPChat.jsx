@@ -55,9 +55,9 @@ const TeamsPChat = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#EEF9FE', padding: '0.5rem', borderRadius: '12px' }}>
+    <div style={{ backgroundColor: '#EEF9FE', padding: '0.3rem', borderRadius: '12px' }}>
       {/* Set the height here */}
-      <Pie {...config} height={420} />  {/* Adjust the height as needed */}
+      <Pie {...config} height={410} />  {/* Adjust the height as needed */}
     </div>
   );
 };
