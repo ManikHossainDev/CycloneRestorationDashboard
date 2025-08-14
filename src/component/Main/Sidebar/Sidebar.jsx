@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "/", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "/RepairRequest", label: "Repair Request", icon: <FaUsersRectangle className="size-8" /> },
     { path: "/users", label: "Users", icon: <FaRegUserCircle className="size-8" /> },
-    { path: "/Teamslist", label: "Teams list", icon: <FaUsersBetweenLines className="size-8" /> },
+    { path: "/Teamslist", label: "Contractor List", icon: <FaUsersBetweenLines className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
     { path: "/PaymentRequest", label: "Payment Request", icon: <MdOutlinePayment className="size-8" /> },
     { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },

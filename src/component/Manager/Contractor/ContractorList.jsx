@@ -56,7 +56,7 @@ const ContractorList = () => {
 
   return (
     <div className="w-full col-span-full md:col-span-6 rounded-lg">
-      <h2 className="text-lg font-semibold mb-4"> Members list</h2>
+      <h2 className="text-lg font-semibold mb-4"> Contractors list</h2>
       <ConfigProvider
         theme={{
           token: { colorBgContainer: "#EEF9FE", colorPrimary: "#48B1DB", borderRadius: 8 },

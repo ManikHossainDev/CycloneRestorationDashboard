@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../redux/features/auth/authSlice";
 import LogoImage from "../../../assets/auth/Logo.png";
 import { useState } from "react";
-import { FaRegMessage,} from "react-icons/fa6";
+import { FaRegMessage, FaUsersBetweenLines,} from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { MdAddTask,  } from "react-icons/md";
 
@@ -26,6 +26,7 @@ const ManagerSidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "Manager", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "ManagerRepairRequest", label: "Repair Request", icon: <MdAddTask className="size-8" /> },
     { path: "/Member", label: "Members", icon: <FaUsers className="size-8" /> },
+    { path: "/Contractor", label: "Contractors", icon: <FaUsersBetweenLines className="size-8" /> },
     { path: "/ManagerMessage", label: "Message", icon: <FaRegMessage  className="size-7" /> },
     { path: "/ManagerSettings", label: "Settings", icon: <IoSettingsOutline className="size-8" /> },
   ];

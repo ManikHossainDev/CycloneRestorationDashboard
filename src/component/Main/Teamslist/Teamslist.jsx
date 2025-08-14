@@ -78,13 +78,13 @@ const Teamslist = () => {
   return (
     <div className="w-full rounded-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-xl">Teams list</h2>
-        <button
+        <h2 className="font-semibold text-xl">Contractor list</h2>
+        {/* <button
           onClick={showModal}
           className="px-3 py-2 bg-[#48B1DB] text-white rounded text-xl"
         >
-          Add Team
-        </button>
+          Add Contractor
+        </button> */}
       </div>
 
       <ConfigProvider
