@@ -65,10 +65,6 @@ const TeamsSettings = () => {
       title: `${t("Change password")}`,
       path: "change-password",
     },
-    {
-      title: "Add Team Member",
-      path: "AddTeamMember",
-    },
   ];
 
   return (
