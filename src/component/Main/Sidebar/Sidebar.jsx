@@ -29,10 +29,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { path: "/", label: "Dashboard", icon: <LuLayoutDashboard className="size-8" /> },
     { path: "/RepairRequest", label: "Repair Request", icon: <FaUsersRectangle className="size-8" /> },
     { path: "/users", label: "Member", icon: <FaRegUserCircle className="size-8" /> },
-    { path: "/Teamslist", label: "Contractor List", icon: <FaUsersBetweenLines className="size-8" /> },
-    { path: "/Managerlist", label: "Manager List", icon: <FaUsersGear className="size-8" /> },
+    { path: "/Teamslist", label: "Contractor ", icon: <FaUsersBetweenLines className="size-8" /> },
+    { path: "/Managerlist", label: "Manager ", icon: <FaUsersGear className="size-8" /> },
     { path: "/Earnings", label: "Earnings", icon: <RiMoneyDollarCircleLine className="size-8" /> },
-    { path: "/PaymentRequest", label: "Payment Request", icon: <MdOutlinePayment className="size-8" /> },
+    { path: "/Service", label: "Service", icon: <LuPackageOpen className="size-8" /> },
+    // { path: "/PaymentRequest", label: "Payment Request", icon: <MdOutlinePayment className="size-8" /> },
     { path: "/Message", label: "Message", icon: <FaRegMessage  className="size-7" /> },
     { path: "/Subscription", label: "Subscription ", icon: <BiSolidCrown  className="size-7" /> },
     { path: "/Reports", label: "Reports", icon: <TbMessageReport className="size-8" /> },
@@ -48,7 +49,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           if (isSidebarOpen) toggleSidebar(); // Close sidebar on mobile
         }}
         className={({ isActive }) =>
-          `lg:px-2 py-2 flex items-center gap-3 rounded-md transition-all ${
+          `lg:px-2 py-2 flex items-center gap-2 rounded-md transition-all ${
             isActive ? "bg-[#48B1DB] text-white" : "text-black"
           }`
         }
