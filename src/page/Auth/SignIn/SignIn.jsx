@@ -21,10 +21,10 @@ const SignIn = () => {
       const res = await login({ email, password });
       console.log(res)
       // console.log(res?.data?.data?.authToken)
-      if (res?.data?.success === true) {
-        const user = res?.data?.data?.user;
+      if (res?.data?.code === 200) {
+        const user = res?.data?.data?.attributes?.user;
         console.log(user, "user");
-        const token = res?.data?.data?.authToken;
+        const token = res?.data?.data?.attributes?.tokens?.access?.token;
         console.log(token, 'token'); 
         dispatch(loggedUser({ user, token }));
         toast.success(res.data.message);
@@ -42,7 +42,7 @@ const SignIn = () => {
   };
   return (
     <section className="h-screen flex items-center justify-center ">
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 p-8 rounded-md">
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:p-8 rounded-md">
         <div className="hidden md:block  justify-center bg-[#cbeafd]">
           <img
             src={signinImage}

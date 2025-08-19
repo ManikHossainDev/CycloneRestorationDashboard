@@ -1,31 +1,36 @@
-import { useState } from "react";
-import { Table, ConfigProvider, Space, Button, Select } from "antd";
+import { Table, ConfigProvider, Space, Button } from "antd";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useGetAllUsersQuery } from "../../../redux/features/user/userApi";
-import dayjs from "dayjs"; // For formatting date/time
+import dayjs from "dayjs";
+import { imageBaseUrl } from "../../../config/imageBaseUrl";
 
 const UserManagement = () => {
   const { data } = useGetAllUsersQuery();
-  const allUsers =  data?.attributes?.data;
+  console.log(data, "all users data from api");
 
+  const allUsers = data?.attributes?.results;
+  console.log(allUsers, "all users after attributes");
 
-
-  const handleFilterChange = (value) => {
-    setFilter(value);
-  };
+ 
 
   // Transform the API response to table format
-  const dataSource = allUsers?.map((user, index) => ({
-    key: user.id,
-    sl: String(index + 1).padStart(2, "0"),
-    userName: user.name,
-    email: user.email,
-    address: user.address,
-    phone: user.phone || "N/A",
-    timeAndDate: dayjs(user.createdAt).format("DD MMM YY, hh:mm A"),
-    userImage: user.profilePictureUrl || "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
-  })) || [];
+  const dataSource =
+    allUsers?.map((user, index) => ({
+      key: user.id,
+      sl: String(index + 1).padStart(2, "0"),
+      userName: user.fullName,
+      email: user.email,
+      address: user.address || "N/A",
+      phone: user.phoneNumber
+        ? `${user.callingCode}${user.phoneNumber}`
+        : "N/A",
+      timeAndDate: dayjs(user.createdAt).format("DD MMM YY, hh:mm A"),
+      userImage: user.profileImage ? `${imageBaseUrl}${user.profileImage}`
+        : "",
+    })) || [];
+
+    
 
   const columns = [
     {
@@ -61,9 +66,9 @@ const UserManagement = () => {
       key: "phone",
     },
     {
-      title: " Address",
+      title: "Address",
       dataIndex: "address",
-      key:"address"
+      key: "address",
     },
     {
       title: "Time & Date",
@@ -73,7 +78,7 @@ const UserManagement = () => {
     {
       title: "Actions",
       key: "actions",
-      render: (_, record) => (
+      render: ( record) => (
         <Space size="middle">
           <Link to={`/users/${record.key}`}>
             <Button
@@ -90,7 +95,6 @@ const UserManagement = () => {
     <div className="w-full rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl">User List</h2>
-        
       </div>
 
       <ConfigProvider

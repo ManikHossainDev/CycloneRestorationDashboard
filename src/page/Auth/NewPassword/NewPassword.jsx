@@ -10,15 +10,15 @@ import { useResetPasswordMutation } from "../../../redux/features/auth/authApi";
 const NewPassword = () => {
    const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const otp = queryParams.get('otp');
-  console.log(`thise useparams otp get then show`, otp);
+  const email = queryParams.get('email');
+  console.log(`thise useparams email get then show`, email);
   const navigate = useNavigate();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const submit = async (values) => {
     const { password } = values;  
 
     try {
-      const res = await resetPassword({  new_password:password, otp });
+      const res = await resetPassword({  password, email });
 
       if (res.error) {
         toast.error(res.error.data.message);

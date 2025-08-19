@@ -58,9 +58,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      // <AdminRoutes>
-      // </AdminRoutes>
-      <MainLayout />
+      <AdminRoutes>
+         <MainLayout />
+      </AdminRoutes>
     ),
     errorElement: <h1>Error</h1>,
     children: [
@@ -185,9 +185,9 @@ const router = createBrowserRouter([
   {
     path:"/",
     element:(
-      // <TeamsRoutes>
-      // </TeamsRoutes>
+      <TeamsRoutes>
         <TeamsLayout />
+       </TeamsRoutes>
     ),
    errorElement: <h1>Error</h1>,
    children:[
@@ -228,9 +228,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element:(
+      <ManagerRoutes>
       <ManagerLayout />
-      // <ManagerRoutes>
-      // </ManagerRoutes>
+      </ManagerRoutes>
     ),
     errorElement: <h1>Error</h1>,
     children: [

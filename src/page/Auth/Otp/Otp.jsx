@@ -11,6 +11,7 @@ import { useForgotPasswordMutation, useVerifyEmailMutation } from "../../../redu
 const Otp = () => {
   const [otp, setOtp] = useState("");
   const { email } = useParams();
+  console.log(email, "email from params");
   const navigate = useNavigate();
   const [forgotPassword] = useForgotPasswordMutation();
   const [verifyOtp, { isLoading }] = useVerifyEmailMutation();
@@ -18,15 +19,16 @@ const Otp = () => {
     setOtp(otpValue);
   };
   const handleMatchOtp = async () => {    
+    const verify =  { code:otp, email};
     try {
-      const res = await verifyOtp(otp);     
+      const res = await verifyOtp(verify);
       console.log(res)
       if (res.error) {
         toast.error(res?.error?.data?.message);
       }
       if (res.data) {
         toast.success(res?.data?.message);
-        navigate(`/auth/new-password/otp?otp=${otp}`);
+        navigate(`/auth/new-password/email?email=${email}`);
       }
     } catch (error) {
       toast.error("Something went wrong");

@@ -19,7 +19,9 @@ import { ChevronDown, Upload as UploadIcon } from "lucide-react";
 
 const Teamslist = () => {
   const { data } = useGetAllTeamsQuery();
-  const allTeams = data?.attributes?.data || [];
+  console.log(data, "all teams data from api");
+  const allTeams = data?.attributes?.data ;
+  console.log(allTeams, "all teams data from api");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();

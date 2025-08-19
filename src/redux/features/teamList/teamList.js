@@ -3,7 +3,7 @@ const teamList = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllTeams: builder.query({
      query: () => ({
-        url: '/team/get-team-list',
+        url: '/api/v1/users/list?role=contactor',
         method: 'GET',
       }),
       transformResponse: (response) => response.data,

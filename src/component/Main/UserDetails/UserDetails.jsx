@@ -1,17 +1,20 @@
-import { Button, } from "antd";
+import { Button } from "antd";
 import { EyeOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleUserQuery } from "../../../redux/features/user/userApi";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
+import moment from "moment/moment";
 
 const UserDetails = () => {
-  const {id} = useParams()
-  console.log(id) 
-  const {data} = useGetSingleUserQuery(id)
-  console.log(data)
-  const user = data?.attributes
-  console.log(user?.profilePictureUrl)
- 
+  const { id } = useParams();
+  const { data, isLoading, error } = useGetSingleUserQuery(id);
+
+  // ✅ Extract attributes safely
+  const user = data?.attributes;
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Something went wrong!</p>;
+
   return (
     <div className="">
       {/* Header */}
@@ -26,22 +29,27 @@ const UserDetails = () => {
       <div className="flex items-center space-x-6 mb-10">
         <div className="w-24 h-24 rounded-full overflow-hidden border border-gray-300">
           <img
-            src={ user.profilePictureUrl ? `${imageBaseUrl}/${user.profilePictureUrl}` : ""}
-            alt={user.name}
+            src={
+              user?.profileImage
+                ? `${imageBaseUrl}${user.profileImage}`
+                : `${imageBaseUrl}/uploads/users/default.png`
+            }
+            alt={user?.fullName || "User"}
             className="w-full h-full object-cover"
           />
         </div>
-        <h3 className="text-xl font-semibold">{user.name}</h3>
+        <h3 className="text-xl font-semibold">{user?.fullName}</h3>
       </div>
 
       {/* User Info */}
       <div className="grid grid-cols-1 gap-y-6 gap-x-12 w-full md:max-w-3xl mb-10">
         {[
-          { label: "Name", value: user.name },
-          { label: "Email", value: user.email },
-          { label: "Date of Birth", value: user.dob},
-          { label: "Phone number", value: user.phone},
-          { label: "Joining date", value: user.joiningDate},
+          { label: "Name", value: user?.fullName },
+          { label: "Email", value: user?.email },
+          { label: "Date of Birth", value: moment(user?.dateOfBirth).format("DD MMM YYYY") || "N/A" },
+          { label: "Phone number", value: user?.phoneNumber || "N/A" },
+          { label: "Joining date", value: user?.createdAt?.split("T")[0] },
+          { label: "Role", value: user?.role },
         ].map(({ label, value }) => (
           <div
             key={label}
@@ -52,8 +60,6 @@ const UserDetails = () => {
           </div>
         ))}
       </div>
-
-      
     </div>
   );
 };

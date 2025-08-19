@@ -11,11 +11,10 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../../../redux/features/auth/authSlice";
 
-
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const submit = async (values) => {
     try {
       const res = await forgotPassword(values);
@@ -25,10 +24,12 @@ const ForgetPassword = () => {
       }
       if (res.data) {
         toast.success(res.data.message);
-        console.log(res?.data)
-    dispatch(updateToken({
-         token: res.data?.data?.attributes?.accessToken
-       }))
+        console.log(res?.data);
+        dispatch(
+          updateToken({
+            token: res?.data?.data?.attributes?.tokens?.access?.token,
+          })
+        );
         navigate(`/auth/otp/${values?.email}`);
       }
     } catch (error) {

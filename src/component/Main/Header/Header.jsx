@@ -51,8 +51,8 @@ const Header = ({ toggleSidebar }) => {
         />
         {/* Right Side */}
         <div className="text-white">
-          <div className="mr-2">Hisham</div>
-          <div className="text-sm">User Role</div>
+          <div className="mr-2">{user?.fullName}</div>
+          <div className="text-sm">{user?.role}</div>
         </div>
       </div>
     </div>
