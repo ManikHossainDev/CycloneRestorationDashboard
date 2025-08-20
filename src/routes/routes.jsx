@@ -121,7 +121,7 @@ const router = createBrowserRouter([
           element: <EidtSubscriptionPage/>
       },
       {
-        path: "Teamslist/:id",
+        path: "contractor/:id",
         element: <TeamsListDetailsPage />,
       },
       {

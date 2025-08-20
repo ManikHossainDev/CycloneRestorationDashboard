@@ -4,19 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { useTranslation } from "react-i18next";
-import { MdOutlineNotificationsActive } from "react-icons/md";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
 
 const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+  // console.log(user);
 
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
   return (
     <div className=" w-full md:h-[80px] px-3 py-2  flex justify-between items-center  text-white sticky top-0 left-0 z-[9999] bg-[#48B1DB]">
       <div className="flex items-center gap-3 py-1 px-3 md:w-8/12 rounded">

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const AdminRoutes = ({ children }) => {
 
   const { user } = useSelector(state=>state?.auth);
-  console.log(user);
+  // console.log(user);
   const isAdmin = user && user.role === "admin";
   if (!isAdmin) {
     return <Navigate to="/auth" replace />;
