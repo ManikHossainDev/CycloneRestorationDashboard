@@ -1,15 +1,23 @@
+import { get } from "react-hook-form";
 import { baseApi } from "../../baseApi/baseApi";
 
 const Manager = baseApi.injectEndpoints({
-    endpoints: (builder) => ({
-        createManager: builder.mutation({
-            query: (data) => ({
-                url: "/managers",
-                method: "POST",
-                body: data,
-            }),
-        }),
+  endpoints: (builder) => ({
+    createManager: builder.mutation({
+      query: (data) => ({
+        url: "/managers",
+        method: "POST",
+        body: data,
+      }),
     }),
-})
+    getManagers: builder.query({
+      query: () => ({
+        url: "/api/v1/users/list?role=manager",
+        method: "GET",
+      }),
+      transformResponse: (response) => response.data,
+    }),
+  }),
+});
 
-export const { useCreateManagerMutation } = Manager;
+export const { useCreateManagerMutation, useGetManagersQuery } = Manager;
