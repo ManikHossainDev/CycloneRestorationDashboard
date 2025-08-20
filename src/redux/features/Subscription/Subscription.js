@@ -3,7 +3,7 @@ const Subscription = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSubscription: builder.query({
       query: () => ({
-        url: "/subscription/get-subscription-packages",
+        url: "/api/v1/subscriptions",
         method: "GET",
       }),
       providesTags: ["Subscription"],
@@ -11,7 +11,7 @@ const Subscription = baseApi.injectEndpoints({
     }),
     createSubscription: builder.mutation({
       query: (data) => ({
-        url: "/subscription/create-subscription-package",
+        url: "/api/v1/subscriptions",
         method: "POST",
         body: data,
       }),
@@ -19,7 +19,7 @@ const Subscription = baseApi.injectEndpoints({
     }),
     deleteSubscription: builder.mutation({
       query: (id) => ({
-        url: `/subscription/${id}`,
+        url: `/api/v1/subscriptions/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Subscription"],
@@ -32,10 +32,18 @@ const Subscription = baseApi.injectEndpoints({
     }),
     updateSubscription: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/subscription/${id}`,
+        url: `/api/v1/subscriptions/${id}`,
         method: "PATCH",
         body: data,
       }),
+    }),
+    getStripeProducts: builder.query({
+      query: () => ({
+        url: "/api/v1/subscriptions/stripe-products",
+        method: "GET",
+      }),
+      providesTags: ["Subscription"],
+      transformResponse: (response) => response?.data,
     }),
   }),
 });

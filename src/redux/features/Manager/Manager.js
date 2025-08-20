@@ -20,4 +20,4 @@ const Manager = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateManagerMutation, useGetManagersQuery } = Manager;
+export const { useCreateManagerMutation,useGetManagersQuery } = Manager;
