@@ -17,7 +17,8 @@ const AddSubscription = () => {
   });
 
   const {data} = useGetStripeProductsQuery()
-  console.log(data, "data from api");
+  const AllStripeData = data?.attributes
+  console.log(AllStripeData, "data from api");
   const [AddSubscription] = useCreateSubscriptionMutation(); 
 
 
