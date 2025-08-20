@@ -54,4 +54,5 @@ export const {
   useDeleteSubscriptionMutation,
   useSingleSubscriptionQuery,
   useUpdateSubscriptionMutation,
+  useGetStripeProductsQuery,
 } = Subscription;

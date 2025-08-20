@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
-import { useCreateSubscriptionMutation } from "../../../redux/features/Subscription/Subscription";
+import { useCreateSubscriptionMutation, useGetStripeProductsQuery,  } from "../../../redux/features/Subscription/Subscription";
 import { Route, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -16,7 +16,12 @@ const AddSubscription = () => {
     additionalFields: [""],
   });
 
-  const [AddSubscription] = useCreateSubscriptionMutation();
+  const {data} = useGetStripeProductsQuery()
+  console.log(data, "data from api");
+  const [AddSubscription] = useCreateSubscriptionMutation(); 
+
+
+
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({
@@ -61,8 +66,8 @@ const AddSubscription = () => {
     const payload = {
       name: formData.subscriptionName,
       price: parseFloat(formData.subscriptionPrice),
-      durationInMonths: parseInt(formData.subscriptionDuration),
-      planId: formData.planId,
+      
+      duration: formData.duration,
       features: formData.additionalFields,
     };
 
@@ -113,36 +118,22 @@ const AddSubscription = () => {
           />
         </div>
 
-        {/* Subscription Duration */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Duration (Months)
-          </label>
-          <input
-            type="number"
-            required
-            value={formData.subscriptionDuration}
-            onChange={(e) => handleChange("subscriptionDuration", e.target.value)}
-            placeholder="Duration in Months"
-            className="w-full px-4 py-3 border border-cyan-200 rounded-lg"
-          />
-        </div>
+        
 
-        {/* Plan ID Dropdown */}
+        {/* Duration */}
+        {/* need filtering if duration select monthly then stripe monthly stripe id pass and yearly stripe id pass */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Plan 
+            Duration (Months/years)
           </label>
           <div className="relative">
             <select
-              value={formData.planId}
-              onChange={(e) => handleChange("planId", e.target.value)}
+              value={formData.duration}
+              onChange={(e) => handleChange("duration", e.target.value)}
               className="w-full px-4 py-3 pr-10 border border-cyan-200 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-400"
             >
-              <option value="free">Free</option>
-              <option value="basic">Basic</option>
-              <option value="premium">Premium</option>
-              <option value="pro">Pro</option>
+              <option value="monthly">monthly</option>
+              <option value="yearly">yearly</option>
             </select>
             {/* Down Arrow */}
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">

@@ -1,28 +1,28 @@
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useDeleteSubscriptionMutation, useGetSubscriptionQuery,  } from "../../../redux/features/Subscription/Subscription";
+import { useDeleteSubscriptionMutation, useGetSubscriptionQuery } from "../../../redux/features/Subscription/Subscription";
+import Swal from "sweetalert2";
 
 const Subscription = () => {
-  const { data,  } = useGetSubscriptionQuery();
-  const AllData = data?.attributes?.packagesData || [];
-  console.log(AllData)
+  const { data } = useGetSubscriptionQuery();
+  console.log(data, "data from api");
+  const AllData = data?.attributes?.results || [];
+  console.log(AllData);
 
-  const [deleteSubscription] = useDeleteSubscriptionMutation()
+  const [deleteSubscription] = useDeleteSubscriptionMutation();
 
-  const RemoveHandle = async(id) => {
-    console.log(id)
-    try{
-     const res = await deleteSubscription(id)
-     console.log(res.success)
-     console.log(`respone show this console`, res)
-     if(res?.data?.success === true){
-      
-     }
-    }catch(err){
-      console.log(`this is error console`,err)
+  const RemoveHandle = async (id) => {
+    console.log(id);
+    try {
+      const res = await deleteSubscription(id);
+      console.log(res);
+      if (res?.code === 200) {
+        Swal.fire("Deleted!", "Your subscription has been deleted.", "success");
+      }
+    } catch (err) {
+      console.log("Error deleting subscription:", err);
     }
-
-  } 
+  };
 
   return (
     <div className="px-2">
@@ -37,18 +37,23 @@ const Subscription = () => {
 
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 mt-4">
         {AllData.map((sub, index) => (
-          <div key={sub._id || index} className="bg-white rounded-lg border-2 border-blue-200 w-full shadow-sm">
-            <div className="text-center mb-6 ">
+          <div key={sub.id || index} className="bg-white rounded-lg border-2 border-blue-200 w-full shadow-sm">
+            <div className="text-center mb-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-2 border-b-2 border-blue-200 py-4">
-                {sub.name}
+                {sub.title}
               </h3>
-              <div className="text-4xl font-bold text-gray-900">
-                {sub.price === 0 ? "Free" : `$${sub.price}`}
+              <div className="flex space-x-2 justify-center">
+                <div className="text-4xl font-bold text-gray-900">
+                {sub.amount === 0 ? "Free" : `$${sub.amount}`}
               </div>
-              <div className="text-sm text-gray-500">/ {sub.durationInMonths} Month{+sub.durationInMonths > 1 && "s"}</div>
+              <div className="text-sm text-gray-500">
+                <br />
+                <div>
+                  / {Math.round(sub.days / 30)} Month{Math.round(sub.days / 30) > 1 && "s"}
+                </div>
+              </div>
+              </div>
             </div>
-
-           
 
             <div className="space-y-3 mb-6 px-2 md:px-6">
               {sub.features?.map((feature, i) => (
@@ -66,7 +71,10 @@ const Subscription = () => {
               >
                 Edit
               </Link>
-              <button onClick={() => RemoveHandle(sub.id)} className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+              <button
+                onClick={() => RemoveHandle(sub.id)}
+                className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+              >
                 Delete
               </button>
             </div>

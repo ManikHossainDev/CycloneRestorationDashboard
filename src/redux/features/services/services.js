@@ -10,7 +10,6 @@ const servicesApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Services"],
     }),
-
     // CREATE service
     createService: builder.mutation({
       query: (data) => ({
@@ -19,8 +18,7 @@ const servicesApi = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["Services"],
-    }),
-
+    }),    
     // UPDATE service
     updateService: builder.mutation({
       query: ({ id, data }) => ({
@@ -30,7 +28,6 @@ const servicesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Services"],
     }),
-
     // DELETE service
     deleteService: builder.mutation({
       query: (id) => ({
