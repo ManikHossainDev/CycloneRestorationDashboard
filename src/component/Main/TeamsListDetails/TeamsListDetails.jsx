@@ -13,12 +13,13 @@ const TeamsListDetails = () => {
   const user = data?.attributes;
   console.log(user, "user data from api");
 
-  const [block] = useBlockUserMutation();
-  const [unblock] = useUnblockUserMutation();
-
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
   }
+  
+  const [block] = useBlockUserMutation();
+  const [unblock] = useUnblockUserMutation();
+
 
   // Block Handler
   const blockHandler = async (id) => {

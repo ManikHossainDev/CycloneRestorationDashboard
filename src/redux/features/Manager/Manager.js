@@ -5,7 +5,7 @@ const Manager = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createManager: builder.mutation({
       query: (data) => ({
-        url: "/managers",
+        url: "/api/v1/admin/create-manager",
         method: "POST",
         body: data,
       }),
