@@ -1,46 +1,50 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Plus, X } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   useSingleSubscriptionQuery,
   useUpdateSubscriptionMutation,
 } from "../../../redux/features/Subscription/Subscription";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const EditSubscription = () => {
-    const navigate = useNavigate();
-  const { id } = useParams();
-  const { data, isLoading } = useSingleSubscriptionQuery(id);
-  const [UpdateSubscription] = useUpdateSubscriptionMutation();
+  const navigate = useNavigate();
+  const { id } = useParams(); 
 
+  // Initialize state
   const [formData, setFormData] = useState({
     subscriptionName: "",
+    subscriptionDescription: "",
     subscriptionPrice: "",
-    subscriptionDuration: "",
-    planId: "",
     additionalFields: [""],
   });
 
+  const { data:subscriptionsingledata, isLoading } = useSingleSubscriptionQuery(id);
+  console.log("Single Subscription Data:", subscriptionsingledata);
+  const [updateSubscription] = useUpdateSubscriptionMutation();
+
+  // Prefill data when backend returns subscription
   useEffect(() => {
-    if (data?.data) {
-      const sub = data.data;
+    if (subscriptionsingledata?.data?.attributes) {
+      const sub = subscriptionsingledata.data.attributes;
       setFormData({
-        subscriptionName: sub.name || "",
-        subscriptionPrice: sub.price || "",
-        subscriptionDuration: sub.durationInMonths || "",
-        planId: sub.planId || "free",
+        subscriptionName: sub.title || "",
+        subscriptionDescription: sub.description || "",
+        subscriptionPrice: sub.amount || "",
         additionalFields: sub.features?.length ? sub.features : [""],
       });
     }
-  }, [data]);
+  }, [subscriptionsingledata]);
 
+  // Handle input changes
   const handleChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: field === "subscriptionPrice" ? parseFloat(value) || "" : value,
     }));
   };
 
+  // Handle features list
   const handleInputChange = (index, value) => {
     const newFields = [...formData.additionalFields];
     newFields[index] = value;
@@ -50,57 +54,67 @@ const EditSubscription = () => {
     }));
   };
 
+  // Add feature
   const addField = (e) => {
-  e.preventDefault();
-  if (formData.additionalFields.length >= 5) {
-    toast.warning("You can add up to 5 features only.");
-    return;
-  }
-  setFormData((prev) => ({
-    ...prev,
-    additionalFields: [...prev.additionalFields, ""],
-  }));
-};
-
-  const removeField = (e, index) => {
     e.preventDefault();
-    if (formData.additionalFields.length > 1) {
-      const newFields = formData.additionalFields.filter((_, i) => i !== index);
-      setFormData((prev) => ({
-        ...prev,
-        additionalFields: newFields,
-      }));
+    if (formData.additionalFields.length >= 5) {
+      toast.warning("You can add up to 5 features only.");
+      return;
     }
+    setFormData((prev) => ({
+      ...prev,
+      additionalFields: [...prev.additionalFields, ""],
+    }));
   };
 
-  const UpdateHandle = async (e) => {
+  // Remove feature
+  const removeField = (e, index) => {
+    e.preventDefault();
+    const newFields = formData.additionalFields.filter((_, i) => i !== index);
+    setFormData((prev) => ({
+      ...prev,
+      additionalFields: newFields,
+    }));
+  };
+
+  // Save updated subscription
+  const handleSave = async (e) => {
     e.preventDefault();
 
     const payload = {
-      name: formData.subscriptionName,
-      price: parseFloat(formData.subscriptionPrice),
-      durationInMonths: parseInt(formData.subscriptionDuration),
-      planId: formData.planId,
+      // pass ID for update
+      title: formData.subscriptionName,
+      description: formData.subscriptionDescription,
       features: formData.additionalFields,
+      amount: parseFloat(formData.subscriptionPrice),
     };
 
+    // console.log("Payload to be sent:", payload);
+
     try {
-      const res = await UpdateSubscription({ id, data: payload });
-      if (res?.data?.success === true) {
-         navigate("/Subscription");
-      } 
+      const res = await updateSubscription({ id, payload });
+      console.log("Response from UpdateSubscription:", res);
+
+      if (res?.data?.code === 200) {
+        toast.success("Subscription updated successfully!");
+        navigate("/Subscription");
+      } else {
+        toast.error(res?.error?.data?.message || "Update failed");
+      }
     } catch (error) {
-      console.error("Update error:", error);      
+      console.error("Error updating subscription:", error);
+      toast.error("Something went wrong");
     }
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p className="text-center text-gray-600">Loading...</p>;
   }
 
   return (
     <div className="max-w-md bg-gradient-to-br from-blue-50 to-cyan-50 p-5 rounded-md">
-      <form onSubmit={UpdateHandle} className="space-y-6">
+      <form onSubmit={handleSave} className="space-y-6">
+        {/* Subscription Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Subscription Name
@@ -115,13 +129,29 @@ const EditSubscription = () => {
           />
         </div>
 
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Description
+          </label>
+          <textarea
+            value={formData.subscriptionDescription}
+            onChange={(e) =>
+              handleChange("subscriptionDescription", e.target.value)
+            }
+            placeholder="Description"
+            className="w-full px-4 py-3 border border-cyan-200 rounded-lg"
+          />
+        </div>
+
+        {/* Price */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Subscription Price
           </label>
           <input
-            type="number"
             required
+            type="number"
             value={formData.subscriptionPrice}
             onChange={(e) => handleChange("subscriptionPrice", e.target.value)}
             placeholder="Price"
@@ -129,49 +159,7 @@ const EditSubscription = () => {
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Duration (Months)
-          </label>
-          <input
-            type="number"
-            required
-            value={formData.subscriptionDuration}
-            onChange={(e) => handleChange("subscriptionDuration", e.target.value)}
-            placeholder="Duration in Months"
-            className="w-full px-4 py-3 border border-cyan-200 rounded-lg"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Plan
-          </label>
-          <div className="relative">
-            <select
-              value={formData.planId}
-              onChange={(e) => handleChange("planId", e.target.value)}
-              className="w-full px-4 py-3 pr-10 border border-cyan-200 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            >
-              <option value="free">Free</option>
-              <option value="basic">Basic</option>
-              <option value="premium">Premium</option>
-              <option value="pro">Pro</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
+        {/* Features */}
         <div className="space-y-3">
           {formData.additionalFields.map((field, index) => (
             <div key={index} className="flex items-center space-x-3">
@@ -204,6 +192,7 @@ const EditSubscription = () => {
           ))}
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"

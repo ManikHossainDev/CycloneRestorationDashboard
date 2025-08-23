@@ -1,36 +1,76 @@
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
-import { useCreateSubscriptionMutation, useGetStripeProductsQuery,  } from "../../../redux/features/Subscription/Subscription";
-import { Route, useNavigate } from "react-router-dom";
+import {
+  useCreateSubscriptionMutation,
+  useGetStripeProductsQuery,
+} from "../../../redux/features/Subscription/Subscription";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const AddSubscription = () => {
+  const navigate = useNavigate();
 
-   const navigate = useNavigate();
-
+  // Initialize state
   const [formData, setFormData] = useState({
-    subscriptionName: "",
-    subscriptionPrice: "",
-    subscriptionDuration: "",
-    planId: "",
-    additionalFields: [""],
+    subscriptionName: "", // Title
+    subscriptionDescription: "", // Description (Optional)
+    subscriptionPrice: "", // Amount
+    subscriptionDuration: "", // Monthly or Yearly
+    planId: "", // Stripe Plan ID (price ID)
+    additionalFields: [""], // Features
   });
 
-  const {data} = useGetStripeProductsQuery()
-  const AllStripeData = data?.attributes
-  console.log(AllStripeData, "data from api");
-  const [AddSubscription] = useCreateSubscriptionMutation(); 
+  const [AddSubscription] = useCreateSubscriptionMutation();
+  const { data } = useGetStripeProductsQuery();
 
+  // Filter Stripe products by type
+  const monthlyProducts = data?.attributes?.filter(
+    (product) => product?.metadata?.type === "monthly"
+  );
+  const yearlyProducts = data?.attributes?.filter(
+    (product) => product?.metadata?.type === "yearly"
+  );
 
-
-
+  // Handle form input changes
   const handleChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
+
+    // When subscription duration changes
+    if (field === "subscriptionDuration") {
+      if (value === "monthly" && monthlyProducts?.length > 0) {
+        setFormData((prev) => ({
+          ...prev,
+          planId: monthlyProducts[0]?.default_price,
+          // only set price if empty
+          subscriptionPrice:
+            prev.subscriptionPrice || monthlyProducts[0]?.amount / 100,
+        }));
+      } else if (value === "yearly" && yearlyProducts?.length > 0) {
+        setFormData((prev) => ({
+          ...prev,
+          planId: yearlyProducts[0]?.default_price,
+          subscriptionPrice:
+            prev.subscriptionPrice || yearlyProducts[0]?.amount / 100,
+        }));
+      }
+    }
+
+    // Ensure subscriptionPrice stored as number
+    if (field === "subscriptionPrice") {
+      const numericPrice = parseFloat(value);
+      if (!isNaN(numericPrice)) {
+        setFormData((prev) => ({
+          ...prev,
+          subscriptionPrice: numericPrice,
+        }));
+      }
+    }
   };
 
+  // Handle features list
   const handleInputChange = (index, value) => {
     const newFields = [...formData.additionalFields];
     newFields[index] = value;
@@ -40,18 +80,20 @@ const AddSubscription = () => {
     }));
   };
 
+  // Add feature field
   const addField = (e) => {
-  e.preventDefault();
-  if (formData.additionalFields.length >= 5) {
-    toast.warning("You can add up to 5 features only.");
-    return;
-  }
-  setFormData((prev) => ({
-    ...prev,
-    additionalFields: [...prev.additionalFields, ""],
-  }));
-};
+    e.preventDefault();
+    if (formData.additionalFields.length >= 5) {
+      toast.warning("You can add up to 5 features only.");
+      return;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      additionalFields: [...prev.additionalFields, ""],
+    }));
+  };
 
+  // Remove feature field
   const removeField = (e, index) => {
     e.preventDefault();
     const newFields = formData.additionalFields.filter((_, i) => i !== index);
@@ -61,25 +103,26 @@ const AddSubscription = () => {
     }));
   };
 
+  // Save subscription
   const handleSave = async (e) => {
     e.preventDefault();
-   
+
     const payload = {
-      name: formData.subscriptionName,
-      price: parseFloat(formData.subscriptionPrice),
-      
-      duration: formData.duration,
+      title: formData.subscriptionName,
+      description: formData.subscriptionDescription,
       features: formData.additionalFields,
+      amount: parseFloat(formData.subscriptionPrice),
+      type: formData.subscriptionDuration,
+      stripePriceId: formData.planId,
     };
+
+    console.log("Payload to be sent:", payload);
 
     try {
       const res = await AddSubscription(payload);
-      console.log(res?.error?.data?.message)
-      if(res?.data?.code === 200){
+      console.log("Response from AddSubscription:", res);
+      if (res?.data?.code === 201) {
         navigate("/Subscription");
-      }
-      if(res?.error?.data?.code === 409){
-         toast.error(`${res?.error?.data?.message}`)
       }
     } catch (error) {
       console.error("Error creating subscription:", error);
@@ -97,20 +140,34 @@ const AddSubscription = () => {
           <input
             type="text"
             required
-            value={formData.subscriptionName}
             onChange={(e) => handleChange("subscriptionName", e.target.value)}
             placeholder="Subscription Name"
             className="w-full px-4 py-3 border border-cyan-200 rounded-lg"
           />
         </div>
 
-        {/* Subscription Price */}
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Description
+          </label>
+          <textarea
+            value={formData.subscriptionDescription}
+            onChange={(e) =>
+              handleChange("subscriptionDescription", e.target.value)
+            }
+            placeholder="Description"
+            className="w-full px-4 py-3 border border-cyan-200 rounded-lg"
+          />
+        </div>
+
+        {/* Price */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Subscription Price
           </label>
           <input
-          required
+            required
             type="number"
             value={formData.subscriptionPrice}
             onChange={(e) => handleChange("subscriptionPrice", e.target.value)}
@@ -119,22 +176,21 @@ const AddSubscription = () => {
           />
         </div>
 
-        
-
         {/* Duration */}
-        {/* need filtering if duration select monthly then stripe monthly stripe id pass and yearly stripe id pass */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Duration (Months/years)
+            Duration (Monthly/Yearly)
           </label>
           <div className="relative">
             <select
-              value={formData.duration}
-              onChange={(e) => handleChange("duration", e.target.value)}
+              onChange={(e) =>
+                handleChange("subscriptionDuration", e.target.value)
+              }
               className="w-full px-4 py-3 pr-10 border border-cyan-200 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-400"
             >
-              <option value="monthly">monthly</option>
-              <option value="yearly">yearly</option>
+              <option value="">Select Duration</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
             </select>
             {/* Down Arrow */}
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
@@ -145,13 +201,18 @@ const AddSubscription = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
         </div>
 
-        {/* Features List */}
+        {/* Features */}
         <div className="space-y-3">
           {formData.additionalFields.map((field, index) => (
             <div key={index} className="flex items-center space-x-3">
@@ -184,7 +245,7 @@ const AddSubscription = () => {
           ))}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"

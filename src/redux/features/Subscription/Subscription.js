@@ -26,15 +26,15 @@ const Subscription = baseApi.injectEndpoints({
     }),
     singleSubscription: builder.query({
       query: (id) => ({
-        url: `/subscription/${id}`,
+        url: `/api/v1/subscriptions/${id}`,
         method: "GET",
       }),
     }),
     updateSubscription: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, payload }) => ({
         url: `/api/v1/subscriptions/${id}`,
         method: "PATCH",
-        body: data,
+        body: payload,
       }),
     }),
     getStripeProducts: builder.query({
