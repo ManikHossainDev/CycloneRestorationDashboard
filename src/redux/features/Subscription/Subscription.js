@@ -36,6 +36,7 @@ const Subscription = baseApi.injectEndpoints({
         method: "PATCH",
         body: payload,
       }),
+      invalidatesTags: ["Subscription"],
     }),
     getStripeProducts: builder.query({
       query: () => ({

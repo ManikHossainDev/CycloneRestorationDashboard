@@ -4,7 +4,7 @@ import { useDeleteSubscriptionMutation, useGetSubscriptionQuery } from "../../..
 import Swal from "sweetalert2";
 
 const Subscription = () => {
-  const { data } = useGetSubscriptionQuery();
+  const { data, refetch,  } = useGetSubscriptionQuery();
   console.log(data, "data from api");
   const AllData = data?.attributes?.results || [];
   console.log(AllData);
@@ -17,6 +17,7 @@ const Subscription = () => {
       const res = await deleteSubscription(id);
       console.log(res);
       if (res?.code === 200) {
+        refetch();
         Swal.fire("Deleted!", "Your subscription has been deleted.", "success");
       }
     } catch (err) {

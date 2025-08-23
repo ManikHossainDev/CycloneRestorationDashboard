@@ -1,40 +1,36 @@
-import { useState } from "react";
-import { Table, ConfigProvider, Space, Button, Select, Modal } from "antd";
-import { AiFillEye } from "react-icons/ai";
+import { useState, useEffect } from "react";
+import { Table, ConfigProvider, Space, Button, Modal } from "antd";
 import { FaEye } from "react-icons/fa";
+import { useGetContactQuery } from "../../../redux/features/contact/contact";
+import moment from "moment/moment";
 
 const Message = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [messageData, setMessageData] = useState([]);
+  
+  // Fetch data from the server
+  const { data, isLoading } = useGetContactQuery();
+  const allmessage = data?.data?.attributes?.results;
 
-  const dataSource = [
-    {
-      key: "1",
-      sl: "01",
-      userName: "Bashar",
-      email: "info@gmail.com",
-      phone: "089999******",
-      time: "11 April, 2025, 10AM",
-      userImage: "https://i.ibb.co/bjzn3zKW/Rectangle-3.png",
-      message:
-        "Hi, I'd like to exchange this dress.I'd like to exchange this dress.I'd like to exchange this dress.",
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Bashar",
-      email: "info@gmail.com",
-      phone: "089999******",
-      time: "11 April, 2025, 10AM",
-      userImage: "https://i.ibb.co/bjzn3zKW/Rectangle-3.png",
-      message:
-        "Hi, I'd like to exchange this dress.I'd like to exchange this dress.I'd like to exchange this dress.",
-    },
-    // Add more rows as needed...
-  ];
+  useEffect(() => {
+    if (allmessage) {
+      const formattedData = allmessage.map((item, index) => ({
+        key: item.id || index,
+        sl: index + 1,
+        userName: item.fullName,
+        email: item.email,
+        phone: item.phoneNumber,
+        time: moment(item.createdAt).format("DD/MM/YYYY"),
+        message: item.message,
+      }));
+      setMessageData(formattedData);
+    }
+  }, [allmessage]);
 
-  const handleFilterChange = (value) => {
-    setFilter(value);
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setSelectedMessage(null);
   };
 
   const showModal = (record) => {
@@ -42,58 +38,47 @@ const Message = () => {
     setModalVisible(true);
   };
 
-  const handleModalClose = () => {
-    setModalVisible(false);
-    setSelectedMessage(null);
-  };
-
   const columns = [
     {
       title: "#SL",
       dataIndex: "sl",
       key: "sl",
-      width: 60,
+     
     },
     {
       title: "User Name",
       dataIndex: "userName",
       key: "userName",
-      render: (_, record) => (
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-            <img
-              src={record.userImage}
-              alt={record.userName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="font-medium">{record.userName}</span>
-        </div>
-      ),
-      width: 180,
+      
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 220,
+      
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+     
     },
     {
       title: "Time",
       dataIndex: "time",
       key: "time",
-      width: 180,
+     
     },
     {
       title: "Actions",
       key: "actions",
-      width: 80,
+     
       render: (_, record) => (
         <Space size="middle">
           <Button
             onClick={() => showModal(record)}
             className="bg-[#48B1DB] text-white hover:bg-[#3399cc] border-none"
-            icon={<FaEye  size={20} />}
+            icon={<FaEye size={20} />}
             shape="circle"
           />
         </Space>
@@ -102,7 +87,7 @@ const Message = () => {
   ];
 
   return (
-    <div className="w-full rounded-lg ">
+    <div className="w-full rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl">Message</h2>
       </div>
@@ -124,7 +109,7 @@ const Message = () => {
       >
         <Table
           columns={columns}
-          dataSource={dataSource}
+          dataSource={messageData} // Using server data now
           pagination={{
             pageSize: 9,
             showSizeChanger: false,
@@ -165,7 +150,6 @@ const Message = () => {
           </Button>,
         ]}
         centered
-        bodyStyle={{ borderRadius: "16px", padding: "20px" }}
         style={{ borderRadius: "16px" }}
         width={360}
         title={<h3 className="font-semibold text-lg">Message</h3>}
@@ -173,11 +157,7 @@ const Message = () => {
         {selectedMessage && (
           <>
             <div className="flex items-center gap-3 mb-4">
-              <img
-                src={selectedMessage.userImage}
-                alt={selectedMessage.userName}
-                className="w-10 h-10 rounded-full object-cover"
-              />
+              <span className="">Name:</span>
               <span className="font-medium">{selectedMessage.userName}</span>
             </div>
             <p className="mb-4 whitespace-pre-wrap">
