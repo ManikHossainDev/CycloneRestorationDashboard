@@ -10,6 +10,7 @@ import { useGetAllPrivacyPolicyQuery } from "../../redux/features/PrivacyPolicy/
 const PrivacyPolicyPage = () => {
   const {t} = useTranslation()
   const { data, error, isLoading } = useGetAllPrivacyPolicyQuery();
+  console.log(data)
   console.log(data?.data?.attributes[0]?.content)
     
   if (isLoading) {

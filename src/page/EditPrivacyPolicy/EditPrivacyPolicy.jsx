@@ -23,7 +23,7 @@ const EditPrivacyPolicy = () => {
 
   const handleSubmit = async () => {
     // Extract plain text from Quill content
-    const plainText = content.replace(/<[^>]*>/g, "").trim(); // Remove HTML tags and trim whitespace
+    const plainText = content.replace(/<[^>]*>/g, "").trim(); 
 
     console.log(plainText);
     // Ensure content is not empty
@@ -106,3 +106,5 @@ const EditPrivacyPolicy = () => {
 };
 
 export default EditPrivacyPolicy;
+
+

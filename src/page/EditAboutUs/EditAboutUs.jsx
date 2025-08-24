@@ -81,10 +81,10 @@ const plainText = content.replace(/<[^>]*>/g, "").trim(); // Remove HTML tags an
                     ["link", "image", "video"], // Link, image, and video upload
                     [{ script: "sub" }, { script: "super" }], // Subscript and superscript
                     [{ indent: "-1" }, { indent: "+1" }], // Indent
-                    ["clean"], // Remove formatting
+                    ["clean"], 
                   ],
                 }}
-                style={{ height: "300px" }} // Set the increased height
+                style={{ height: "300px" }} 
               />
             </Form.Item>
 
