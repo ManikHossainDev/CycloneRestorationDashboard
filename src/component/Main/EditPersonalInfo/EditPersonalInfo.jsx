@@ -1,81 +1,73 @@
-import { Form } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { IoChevronBack, IoCameraOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import {
-  useGetUserQuery,
-  useUpdateUserMutation,
-} from "../../../redux/features/profile/profileApi";
-import CustomButton from "../../../utils/CustomButton";
-import CustomInput from "../../../utils/CustomInput";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { useTranslation } from "react-i18next";
+import { useGetUserQuery, useUpdateUserMutation } from "../../../redux/features/profile/profileApi";
 
 const EditInformation = () => {
   const { data } = useGetUserQuery();
-  const user = data?.attributes?.user;
-  // console.log(user);
-  const [form] = Form.useForm();
-
+  const user = data?.data?.attributes?.user;
   const navigate = useNavigate();
   const [updateProfileInfo, { isLoading }] = useUpdateUserMutation();
-
-  const [imageFile, setImageFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(
-    user?.profileImage ? `${imageBaseUrl}${user.profileImage}` : null
-  );
+  const [previewImage, setPreviewImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
+  // Show existing profile image on load
   useEffect(() => {
-    if (user) {
-      form.setFieldsValue({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        callingCode: user.callingCode || "",
-        phoneNumber: user.phoneNumber || "",
-        nidNumber: user.nidNumber || "",
-        dateOfBirth: user.dateOfBirth || "",
-        address: user.location?.locationName || "", // Assuming you want to display location as address
-      });
+    if (user?.profileImage) {
+      setPreviewImage(`${imageBaseUrl}${user.profileImage}`);
     }
-  }, [user, form]);
+  }, [user]);
 
-  const handleImageChange = (event) => {
-    const file = event.target.files && event.target.files[0];
+  // Handle image selection
+  const handleImageChange = (e) => {
+    const file = e.target.files && e.target.files[0];
     if (file) {
-      const newImageUrl = URL.createObjectURL(file);
-      setImageFile(file); // Store file to send on update
-      setImageUrl(newImageUrl); // Show preview
+      const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG, and PNG files are allowed.");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("File size must be less than 5MB.");
+        return;
+      }
+
+      setSelectedImage(file); // save selected file
+      setPreviewImage(URL.createObjectURL(file)); // show preview
     }
   };
 
-  const handleDivClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click(); // Open file dialog
-    }
-  };
+  // Submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const firstName = form.firstName.value;
+    const lastName = form.lastName.value;
+    const callingCode = form.callingCode.value; 
+    const phoneNumber = form.phoneNumber.value;
+    const nidNumber = form.nidNumber.value;
+    const dateOfBirth = form.dateOfBirth.value;
+    const address = form.address.value;
+    
 
-  const onFinish = async (values) => {
     const formdata = new FormData();
-
-    // Append the updated values with updated field names
-    formdata.append("first_name", values.firstName);  // Changed field name
-    // formdata.append("last_name", values.lastName);    // Changed field name
-    formdata.append("phone_number", values.phoneNumber); // Changed field name
-    formdata.append("address", values.address);
-
-    // Add image if updated
-    if (imageFile) {
-      formdata.append("profileImage", imageFile);  // Changed field name
+    formdata.append("firstName", firstName);
+    formdata.append("lastName", lastName);
+    formdata.append("callingCode", callingCode);
+    formdata.append("phoneNumber", phoneNumber);  
+    formdata.append("nidNumber", nidNumber);
+    formdata.append("dateOfBirth", dateOfBirth);
+    formdata.append("address", address);
+    if (formdata.image) {
+      formdata.append("image", selectedImage);
     }
+    
 
     try {
-      const response = await updateProfileInfo(formdata);
-      console.log(response);
-      if (response.error) {
-        toast.error(response.error.data.message);
-      }
+      const response = await updateProfileInfo(formdata).unwrap();
       if (response.data) {
         toast.success("Profile updated successfully!");
         navigate("/personal-info");
@@ -86,82 +78,116 @@ const EditInformation = () => {
     }
   };
 
-  const { t } = useTranslation();
-
   return (
     <div className="w-full">
-      {/* Back Button and Title */}
+      {/* Back Button */}
       <div className="flex justify-between items-center">
         <div className="flex items-center my-6">
           <Link to="/personal-info">
             <IoChevronBack className="text-xl" />
           </Link>
-          <h1 className="text-2xl font-semibold">{t("Edit Information")}</h1>
+          <h1 className="text-2xl font-semibold">Edit Information</h1>
         </div>
       </div>
-      {/* Profile Information */}
-      <div className="w-full md:w-[95%] lg:w-[50%] p-7 px-14 rounded-md bg-[#E5F6FD] h-full md:mt-1  mx-auto mb-5">
-        {/* Profile Picture */}
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full md:w-[95%] lg:w-[50%] p-7 px-14 rounded-md bg-[#E5F6FD] mx-auto mb-5"
+      >
+        {/* Profile Image */}
         <div className="flex justify-center">
-          <div onClick={handleDivClick} className="cursor-pointer">
-            {imageUrl ? (
-              <>
-                <img
-                  className="border rounded-full w-[130px] h-[130px]"
-                  src={imageUrl}
-                  alt="Profile Preview"
-                />
-              </>
+          <div onClick={() => fileInputRef.current.click()} className="cursor-pointer">
+            {previewImage ? (
+              <img
+                className="border rounded-full w-[130px] h-[130px] object-cover"
+                src={previewImage}
+                alt="Profile Preview"
+              />
             ) : (
-              <div className="border rounded-3xl p-5 text-white ">
-                <IoCameraOutline size={60} />
+              <div className="border rounded-full w-[130px] h-[130px] flex justify-center items-center bg-gray-300">
+                <IoCameraOutline size={40} className="text-white" />
               </div>
             )}
           </div>
+
           <input
             type="file"
             ref={fileInputRef}
+            name="image"
             onChange={handleImageChange}
             accept="image/*"
             style={{ display: "none" }}
           />
         </div>
 
-        {/* Edit Form */}
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={onFinish}
-          className="w-full col-span-full md:col-span-9 space-y-6 mt-5"
-        >
-          {/* First Name */}
-          <Form.Item label={t("User Name")} name="firstName">
-            <CustomInput placeholder="Enter your first name" />
-          </Form.Item>
+        {/* Inputs */}
+        <input
+          type="text"
+          name="firstName"
+          defaultValue={user?.firstName || ""}
+          placeholder="Enter your first name"
+          className="w-full border p-2 rounded mt-5"
+        />
 
-          {/* Last Name */}
-          {/* <Form.Item label={t("Last Name")} name="lastName">
-            <CustomInput placeholder="Enter your last name" />
-          </Form.Item> */}
+        <input
+          type="text"
+          name="lastName"
+          defaultValue={user?.lastName || ""}
+          placeholder="Enter your last name"
+          className="w-full border p-2 rounded mt-5"
+        />
 
-          {/* Phone Number */}
-          <Form.Item label={t("Phone Number")} name="phoneNumber">
-            <CustomInput placeholder="Enter your phone number" />
-          </Form.Item>
+        <input
+          type="text"
+          name="callingCode"
+          defaultValue={user?.callingCode || ""}
+          placeholder="Enter your calling code"
+          className="w-full border p-2 rounded mt-5"
+        />
 
-          {/* Address */}
-          <Form.Item label={t("Address")} name="address">
-            <CustomInput placeholder="Enter your address" />
-          </Form.Item>
+        <input
+          type="text"
+          name="phoneNumber"
+          defaultValue={user?.phoneNumber || ""}
+          placeholder="Enter your phone number"
+          className="w-full border p-2 rounded mt-5"
+        />
 
-          {/* Submit Button */}
-          <div className="flex justify-center">
-            <CustomButton loading={isLoading} className="px-5 py-3">
-              {t("Update Information")}
-            </CustomButton>
-          </div>
-        </Form>
-      </div>
+        <input
+          type="text"
+          name="nidNumber"
+          defaultValue={user?.nidNumber || ""}
+          placeholder="Enter your NID number"
+          className="w-full border p-2 rounded mt-5"
+        />
+
+        <input
+          type="date"
+          name="dateOfBirth"
+          defaultValue={user?.dateOfBirth || ""}
+          className="w-full border p-2 rounded mt-5"
+        />
+
+        <input
+          type="text"
+          name="address"
+          defaultValue={user?.address || ""}
+          placeholder="Enter your address"
+          className="w-full border p-2 rounded mt-5"
+        />
+
+        {/* Submit */}
+        <div className="flex justify-center mt-6">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="bg-blue-500 text-white px-5 py-3 rounded"
+          >
+            {isLoading ? "Updating..." : "Update Information"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

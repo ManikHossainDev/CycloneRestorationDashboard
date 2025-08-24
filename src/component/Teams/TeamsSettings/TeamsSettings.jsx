@@ -43,7 +43,7 @@ const TeamsSettings = () => {
   const handleChangePassword = async (values) => {
     console.log(values);
     const { oldPassword, newPassword } = values;
-    const data = {  new_password:newPassword, };
+    const data = { oldPassword, newPassword };
     try {
       const res = await changePassWithOldPass(data);
       console.log(res);
@@ -101,58 +101,63 @@ const TeamsSettings = () => {
         centered
       >
         {modelTitle === "Change password" && (
-          <div className="w-full px-5 ">
+          <div className="w-full px-5">
             <p className="text-[14px] mb-[14px]">
-              {t("Your password must be 8-10 character long.")}
+              {t("Your password must be 8-10 characters long.")}
             </p>
             <Form
               form={form}
-              name="dependencies"
+              name="changePassword"
               autoComplete="off"
-              style={{
-                maxWidth: 600,
-              }}
+              style={{ maxWidth: 600 }}
               layout="vertical"
               className="space-y-4 fit-content object-contain"
               onFinish={handleChangePassword}
             >
-              
-
+              {/* Old Password */}
               <Form.Item
-                name="newPassword"
+                name="oldPassword"
                 rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your New Password!",
-                  },
+                  { required: true, message: "Please input your old password!" },
                 ]}
               >
                 <Input.Password
                   size="large"
-                  placeholder="Set Your New Password"
+                  placeholder="Old Password"
+                  name="oldPassword"
+                  className="w-full px-3 py-2"
+                />
+              </Form.Item>
+
+              {/* New Password */}
+              <Form.Item
+                name="newPassword"
+                rules={[
+                  { required: true, message: "Please input your new password!" },
+                  { min: 8, max: 10, message: "Password must be 8-10 characters long." },
+                ]}
+              >
+                <Input.Password
+                  size="large"
+                  placeholder="New Password"
                   name="newPassword"
                   className="w-full px-3 py-2"
                 />
               </Form.Item>
 
-              {/* Field */}
+              {/* Confirm Password */}
               <Form.Item
                 name="confirmPassword"
                 dependencies={["newPassword"]}
                 rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Re-enter Password!",
-                  },
+                  { required: true, message: "Please re-enter your new password!" },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (!value || getFieldValue("newPassword") === value) {
                         return Promise.resolve();
                       }
                       return Promise.reject(
-                        new Error(
-                          "The new password that you entered do not match!"
-                        )
+                        new Error("The new password does not match!")
                       );
                     },
                   }),
@@ -160,32 +165,31 @@ const TeamsSettings = () => {
               >
                 <Input.Password
                   size="large"
-                  placeholder="Re-enter password"
-                  name="re_enter_password"
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
                   className="w-full px-3 py-2"
                 />
               </Form.Item>
-              <p className=" text-secondary font-medium">
+
+              <p className="text-secondary font-medium">
                 <button onClick={() => setModelTitle("Forget password")}>
-                  {/* <h1 className="underline text-[#48B1DB]">
-                    {t("Forget Password")}
-                  </h1> */}
+                  {/* Optional: Forget Password Link */}
                 </button>
               </p>
+
               <Form.Item>
                 <button
                   type="submit"
-                  className="w-full px-5 py-4  mt-2 text-white bg-[#48B1DB] rounded-lg"
+                  className="w-full px-5 py-4 mt-2 text-white bg-[#48B1DB] rounded-lg"
                 >
                   {changePasswordLoading ? (
                     <h1 className="flex justify-center items-center gap-1">
                       <ImSpinner6 className="animate-spin size-5" />
-                      <span>Update password</span>
+                      <span>Updating...</span>
                     </h1>
                   ) : (
-                    ""
+                    t("Update Password")
                   )}
-                  {t("Update Password")}
                 </button>
               </Form.Item>
             </Form>
