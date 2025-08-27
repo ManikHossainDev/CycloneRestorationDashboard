@@ -55,6 +55,8 @@ import ManagerPage from "../page/ManagerPage/ManagerPage";
 import ServicePage from "../page/ServicePage/ServicePage";
 import ManagerProfile from "../component/Manager/ManagerProfile/ManagerProfile";
 import ManagerProfileEdit from "../component/Manager/ManagerProfileEdit/ManagerProfileEdit";
+import TeamsProfileEdit from "../component/Teams/TeamsProfileEdit/TeamsProfileEdit";
+import TeamsNotification from "../component/Teams/TeamsNotification/TeamsNotification";
 
 const router = createBrowserRouter([
   {
@@ -218,12 +220,20 @@ const router = createBrowserRouter([
       element: <TeamsProfile />
     },
     {
+      path: "teamsProfileEdit",
+      element: <TeamsProfileEdit />
+    },
+    {
       path:"teamsMessage",
       element: <TeamsMessage />
     },
     {
       path: "settings/AddTeamMember",
       element: <AddTeamMember />
+    },
+    {
+      path: "notification",
+      element: <TeamsNotification />
     }
    ]
   },
