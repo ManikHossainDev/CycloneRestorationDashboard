@@ -57,6 +57,7 @@ import ManagerProfile from "../component/Manager/ManagerProfile/ManagerProfile";
 import ManagerProfileEdit from "../component/Manager/ManagerProfileEdit/ManagerProfileEdit";
 import TeamsProfileEdit from "../component/Teams/TeamsProfileEdit/TeamsProfileEdit";
 import TeamsNotification from "../component/Teams/TeamsNotification/TeamsNotification";
+import ManagerNotification from "../component/Manager/ManagerNotification/ManagerNotification";
 
 const router = createBrowserRouter([
   {
@@ -281,6 +282,10 @@ const router = createBrowserRouter([
       {
         path: "ManagerProfileEdit",
         element: <ManagerProfileEdit />
+      },
+      {
+        path: "ManagerNotification",
+        element: <ManagerNotification />
       }
     ],
   },
