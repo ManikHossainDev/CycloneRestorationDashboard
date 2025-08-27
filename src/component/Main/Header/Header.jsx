@@ -9,7 +9,7 @@ import { IoNotificationsCircleOutline } from "react-icons/io5";
 const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  // console.log(user);
+  console.log(user?.role);
 
   return (
     <div className=" w-full md:h-[80px] px-3 py-2  flex justify-between items-center  text-white sticky top-0 left-0 z-[9999] bg-[#48B1DB]">
@@ -34,8 +34,17 @@ const Header = ({ toggleSidebar }) => {
             </div>
           </Link>
         </div>
+
         <img
-          onClick={() => navigate("/personal-info")}
+          onClick={() => {
+            if (user?.role === "admin") {
+              navigate("/personal-info");
+            } else if (user?.role === "member") {
+              navigate("/TeamsProfile");
+            } else if (user?.role === "manager") {
+              navigate("/ManagerProfile");
+            } 
+          }}
           src={
             user?.profileImage
               ? `${imageBaseUrl}${user?.profileImage}`
@@ -45,7 +54,7 @@ const Header = ({ toggleSidebar }) => {
         />
         {/* Right Side */}
         <div className="text-white">
-          <div className="mr-2">{user?.fullName}</div>
+          <div className="mr-2 sm:text-sm md:text-md">{user?.fullName}</div>
           <div className="text-sm">{user?.role}</div>
         </div>
       </div>

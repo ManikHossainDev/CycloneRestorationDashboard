@@ -53,6 +53,8 @@ import RepairRequestsDetails from "../component/Manager/RepairRequestsDetails/Re
 import ContractorList from "../component/Manager/Contractor/ContractorList";
 import ManagerPage from "../page/ManagerPage/ManagerPage";
 import ServicePage from "../page/ServicePage/ServicePage";
+import ManagerProfile from "../component/Manager/ManagerProfile/ManagerProfile";
+import ManagerProfileEdit from "../component/Manager/ManagerProfileEdit/ManagerProfileEdit";
 
 const router = createBrowserRouter([
   {
@@ -262,6 +264,14 @@ const router = createBrowserRouter([
         path: "ManagerSettings",
         element: <ManagerSettings />,
       },
+      {
+        path: "ManagerProfile",
+        element: <ManagerProfile />
+      },
+      {
+        path: "ManagerProfileEdit",
+        element: <ManagerProfileEdit />
+      }
     ],
   },
   {
