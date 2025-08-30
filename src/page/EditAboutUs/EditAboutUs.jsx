@@ -22,32 +22,27 @@ const EditAboutUs = () => {
 
 
   const handleSubmit = async () => {
-    // Extract plain text from Quill content
-const plainText = content.replace(/<[^>]*>/g, "").trim(); // Remove HTML tags and trim whitespace
+  // Optional: check if content is not empty
+  const strippedText = content.replace(/<[^>]*>/g, "").trim();
+  if (!strippedText) {
+    message.error("Content cannot be empty.");
+    return;
+  }
 
-    console.log(plainText)
-    // Ensure content is not empty
-    if (!plainText) {
-      message.error("Content cannot be empty.");
-      return;
+  try {
+    // Send the full HTML content
+    const updatedContent = { content }; 
+
+    const result = await update(updatedContent);
+
+    if (result) {
+      message.success("About Us section updated successfully!");
+      navigate("/settings/about-us");
     }
-
-    try {
-      // Prepare the update payload
-      const updatedContent = { content: plainText };
-      
-      // Send the update request
-      const result = await update(updatedContent);
-
-      // Provide feedback to the user
-      if (result) {
-        message.success("About Us section updated successfully!");
-        navigate("/settings/about-us");
-      }
-    } catch (error) {
-      message.error("Failed to update About Us section.");
-    }
-  };
+  } catch (error) {
+    message.error("Failed to update About Us section.");
+  }
+};
 
   return (
     <section className="w-full h-full min-h-screen ">

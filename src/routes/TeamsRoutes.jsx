@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const TeamsRoutes = ({ children }) => {
 
   const { user } = useSelector(state=>state?.auth);
-  const isAdmin = user && user.role === "Contractor";
+  const isAdmin = user && user.role === "contactor";
   if (!isAdmin) {
     return <Navigate to="/auth" replace />;
   }

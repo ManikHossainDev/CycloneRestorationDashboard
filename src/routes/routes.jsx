@@ -233,7 +233,7 @@ const router = createBrowserRouter([
       element: <AddTeamMember />
     },
     {
-      path: "notification",
+      path: "Teamsnotification",
       element: <TeamsNotification />
     }
    ]

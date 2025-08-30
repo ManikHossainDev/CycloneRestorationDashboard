@@ -1,24 +1,21 @@
 import { BsFillClipboard2CheckFill } from "react-icons/bs";
+import { useGetTotalAdminStatusQuery } from "../../../redux/features/Status/Status";
 
-const data = {
-  totalUser: 1200,
-  recentUserData: [
-    { userId: 1, name: "John" },
-    { userId: 2, name: "Alice" },
-    { userId: 3, name: "Bob" },
-    { userId: 4, name: "Eve" },
-  ],
-};
-
-const Alldata = [
-  { title: "Total User", value: data.totalUser },
-  { title: "Complete Restoration", value: data.totalUser },
-  { title: "Total Teams", value: data.totalUser },
-  { title: "Complete Restoration", value: data.totalUser },
-  { title: "Granted Balance", value: data.totalUser },
-];
 
 const Status = () => {
+
+const {data:allData} = useGetTotalAdminStatusQuery()
+const  Status = allData?.data?.attributes;
+// console.log(Status)
+// console.log(Status?.completeApplication)
+
+const Alldata = [
+  { title: "Complete Application", value: Status?.completeApplication },
+  { title: "Total Application", value: Status?.totalApplication },
+  { title: "Total Contactor", value: Status?.totalContactor},
+  { title: "Total Manager", value: Status?.totalManager},
+  { title: "Total Member", value: Status?.totalMember},
+];
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 gap-7">
       {Alldata.map((item, idx) => (

@@ -22,32 +22,27 @@ const EditPrivacyPolicy = () => {
   }, [data]);
 
   const handleSubmit = async () => {
-    // Extract plain text from Quill content
-    const plainText = content.replace(/<[^>]*>/g, "").trim(); 
+  // Optional: check if content is not empty
+  const strippedText = content.replace(/<[^>]*>/g, "").trim();
+  if (!strippedText) {
+    message.error("Content cannot be empty.");
+    return;
+  }
 
-    console.log(plainText);
-    // Ensure content is not empty
-    if (!plainText) {
-      message.error("Content cannot be empty.");
-      return;
+  try {
+    // Send full HTML content with styles
+    const updatedContent = { content }; 
+
+    const result = await updatePrivacyPolicy(updatedContent);
+
+    if (result) {
+      message.success("Privacy Policy updated successfully!");
+      navigate("/settings/privacy-policy");
     }
-
-    try {
-      // Prepare the update payload
-      const updatedContent = { content: plainText };
-
-      // Send the update request
-      const result = await updatePrivacyPolicy(updatedContent);
-
-      // Provide feedback to the user
-      if (result) {
-        message.success("About Us section updated successfully!");
-        navigate("/settings/privacy-policy");
-      }
-    } catch (error) {
-      message.error("Failed to update About Us section.");
-    }
-  };
+  } catch (error) {
+    message.error("Failed to update Privacy Policy.");
+  }
+};
 
   return (
     <section className="w-full h-full min-h-screen ">

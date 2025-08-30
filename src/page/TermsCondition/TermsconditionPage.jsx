@@ -41,12 +41,12 @@ const TermsconditionPage = () => {
       {/* Your privacy policy content goes here */}
       <div>
         <h1 className="px-5 text-xl">
-          {data?.data?.attributes[0]?.content
-          ? data?.data?.attributes[0]?.content
-              .replace(/<br\s*\/?>/gi, "\n")  // Replace <br> with newlines
-              .replace(/<\/?[^>]+(>|$)/g, "")  // Remove other HTML tags
-          : ""}
-        </h1>
+  <span
+    dangerouslySetInnerHTML={{
+      __html: data?.data?.attributes[0]?.content || "",
+    }}
+  />
+</h1>
       </div>
     </section>
   );

@@ -37,13 +37,13 @@ const AboutUsPage = () => {
       </div>
       {/* Your privacy policy content goes here */}
       <div>
-        <h1  className="px-5 text-xl">
-        {data?.data?.attributes[0]?.content
-          ? data?.data?.attributes[0]?.content
-              .replace(/<br\s*\/?>/gi, "\n")  
-              .replace(/<\/?[^>]+(>|$)/g, "")  
-          : ""}
-        </h1>
+        <h1 className="px-5 text-xl text-black">
+  <span
+    dangerouslySetInnerHTML={{
+      __html: data?.data?.attributes[0]?.content || "",
+    }}
+  />
+</h1>
       </div>
     </section>
   );

@@ -1,50 +1,25 @@
 import { useState } from "react";
 import { Modal, Space, Table, ConfigProvider, Button } from "antd";
 import { AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useGetTotalAdminStatusQuery } from "../../../redux/features/Status/Status";
+import moment from "moment";
 
 const RecentTransactions = () => {
+  const { data: allData } = useGetTotalAdminStatusQuery();
+  const members = allData?.data?.attributes?.recentMemberData || [];
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const dataSource = [
-    {
-      key: "1",
-      sl: "01",
-      userName: "Bashar",
-      email: "SupportInfo@Gmail.Com",
-      phone: "999-888-666",
-      timeAndDate: "11 Oct 24, 11:10 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
-    },
-    {
-      key: "2",
-      sl: "02",
-      userName: "Hasan",
-      email: "hasan123@Gmail.Com",
-      phone: "111-222-333",
-      timeAndDate: "12 Oct 24, 12:20 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
-    },
-    {
-      key: "3",
-      sl: "03",
-      userName: "Karim",
-      email: "karimx@Gmail.Com",
-      phone: "444-555-666",
-      timeAndDate: "13 Oct 24, 03:15 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
-    },
-    {
-      key: "4",
-      sl: "04",
-      userName: "Rafiq",
-      email: "rafiq@Gmail.Com",
-      phone: "777-888-999",
-      timeAndDate: "14 Oct 24, 06:00 PM",
-      userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
-    },
-  ];
+  const dataSource = members.map((item, index) => ({
+    key: item._id,
+    sl: (index + 1).toString().padStart(2, "0"),
+    userName: item.fullName,
+    email: item.email,
+    phone: item.phone || "N/A",
+    timeAndDate: moment(item.createdAt).format("DD MMM YY, hh A"),
+    userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
+  }));
 
   const showModal = (user) => {
     setSelectedUser(user);
@@ -111,7 +86,7 @@ const RecentTransactions = () => {
 
   return (
     <div className="w-full col-span-full md:col-span-6 rounded-lg">
-      <h2 className="font-semibold py-3 text-[20px]">Recent New Users</h2>
+      <h2 className="font-semibold py-3 text-[20px]">Recent New Member</h2>
       <ConfigProvider
         theme={{
           token: {
@@ -131,11 +106,10 @@ const RecentTransactions = () => {
           columns={columns}
           dataSource={dataSource}
           pagination={false}
-          scroll={{ x:800 }}
+          scroll={{ x: 800 }}
         />
       </ConfigProvider>
 
-      {/* Modal */}
       <Modal
         open={isModalVisible}
         onCancel={handleCancel}

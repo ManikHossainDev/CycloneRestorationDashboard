@@ -22,33 +22,29 @@ const EditTermsConditions = () => {
   }, [data]);
 
   const handleSubmit = async () => {
-    // Extract plain text from Quill content
-    const plainText = content.replace(/<[^>]*>/g, "").trim(); // Remove HTML tags and trim whitespace
+  // Optional: check if content is not empty
+  const strippedText = content.replace(/<[^>]*>/g, "").trim();
+  if (!strippedText) {
+    message.error("Content cannot be empty.");
+    return;
+  }
 
-    // Ensure content is not empty
-    if (!plainText) {
-      message.error("Content cannot be empty.");
-      return;
-    }
+  try {
+    // Send the full HTML content with styles
+    const updatedContent = { content };
 
-    try {
-      // Prepare the update payload
-      const updatedContent = { content: plainText };
-      
-      // Send the update request
-      const result = await update(updatedContent);
-      
-      // Check if the mutation was successful
-      if (result?.data) {
-        message.success("Terms and Conditions updated successfully!");
-        navigate("/settings/terms-conditions");
-      } else {
-        message.error("Failed to update Terms and Conditions.");
-      }
-    } catch (error) {
-      message.error("An error occurred while updating Terms and Conditions.");
+    const result = await update(updatedContent);
+
+    if (result?.data) {
+      message.success("Terms and Conditions updated successfully!");
+      navigate("/settings/terms-conditions");
+    } else {
+      message.error("Failed to update Terms and Conditions.");
     }
-  };
+  } catch (error) {
+    message.error("An error occurred while updating Terms and Conditions.");
+  }
+};
 
   return (
     <section className="w-full h-full min-h-screen ">

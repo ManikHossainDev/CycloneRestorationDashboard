@@ -23,16 +23,14 @@ const SignIn = () => {
       // console.log(res?.data?.data?.authToken)
       if (res?.data?.code === 200) {
         const user = res?.data?.data?.attributes?.user;
-        console.log(user, "user");
+        console.log(user?.role, "user");
         const token = res?.data?.data?.attributes?.tokens?.access?.token;
         console.log(token, 'token'); 
         dispatch(loggedUser({ user, token }));
-        toast.success(res.data.message);
         if (user?.role === "admin") {
           navigate("/");
-        }
-        if (user?.role === "team"){
-          navigate("/teams");
+        }else  if (user?.role === "contactor"){
+          navigate("/Teams");
         }
       }
     } catch (error) {

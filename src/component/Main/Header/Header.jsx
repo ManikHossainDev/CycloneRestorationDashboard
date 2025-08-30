@@ -23,41 +23,47 @@ const Header = ({ toggleSidebar }) => {
         </button>
       </div>
 
-      <div className="flex justify-between items-center gap-2 pl-2 mr-5">
-        <div>
-          <Link to="/notification">
-            <div className="mr-4 bg-white rounded-full p-3">
-              <IoNotificationsCircleOutline
-                className="text-[#48B1DB]"
-                size={30}
-              />
-            </div>
-          </Link>
-        </div>
-
-        <img
+     <div className="flex space-x-3">
+       <div className="flex justify-between items-center gap-2 pl-2 ">
+        <div
           onClick={() => {
             if (user?.role === "admin") {
-              navigate("/personal-info");
+              navigate("/notification");
             } else if (user?.role === "member") {
-              navigate("/TeamsProfile");
+              navigate("/TeamsNotification");
             } else if (user?.role === "manager") {
-              navigate("/ManagerProfile");
-            } 
+              navigate("/ManagerNotification");
+            }
           }}
-          src={
-            user?.profileImage
-              ? `${imageBaseUrl}${user?.profileImage}`
-              : "/src/assets/user.png"
-          }
-          className="size-12 rounded-full cursor-pointer"
-        />
-        {/* Right Side */}
-        <div className="text-white">
-          <div className="mr-2 sm:text-sm md:text-md">{user?.fullName}</div>
-          <div className="text-sm">{user?.role}</div>
+          className="mr-4 bg-white rounded-full p-3 cursor-pointer"
+        >
+          <IoNotificationsCircleOutline className="text-[#48B1DB]" size={24} />
         </div>
       </div>
+
+      <img
+        onClick={() => {
+          if (user?.role === "admin") {
+            navigate("/personal-info");
+          } else if (user?.role === "member") {
+            navigate("/TeamsProfile");
+          } else if (user?.role === "manager") {
+            navigate("/ManagerProfile");
+          }
+        }}
+        src={
+          user?.profileImage
+            ? `${imageBaseUrl}${user?.profileImage}`
+            : "/src/assets/user.png"
+        }
+        className="size-12 rounded-full cursor-pointer"
+      />
+      {/* Right Side */}
+      <div className="text-white">
+        <div className="mr-2 sm:text-sm md:text-md">{user?.fullName}</div>
+        <div className="text-sm">{user?.role}</div>
+      </div>
+     </div>
     </div>
   );
 };

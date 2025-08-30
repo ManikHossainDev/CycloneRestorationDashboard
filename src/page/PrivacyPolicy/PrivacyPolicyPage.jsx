@@ -38,13 +38,13 @@ const PrivacyPolicyPage = () => {
         </Link>
       </div>
       <div>
-        <h1  className="px-5 text-xl text-black">
-          {data?.data?.attributes[0]?.content
-          ? data?.data?.attributes[0]?.content
-              .replace(/<br\s*\/?>/gi, "\n")  // Replace <br> with newlines
-              .replace(/<\/?[^>]+(>|$)/g, "")  // Remove other HTML tags
-          : ""}
-        </h1>
+        <h1 className="px-5 text-xl text-black">
+  <span
+    dangerouslySetInnerHTML={{
+      __html: data?.data?.attributes[0]?.content || "",
+    }}
+  />
+</h1>
       </div>
     </section>
   );
