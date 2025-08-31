@@ -86,7 +86,7 @@ const TeamsProfileEdit = () => {
       {/* Back Button */}
       <div className="flex justify-between items-center">
         <div className="flex items-center my-6">
-          <Link to="/personal-info">
+          <Link to="/TeamsProfile">
             <IoChevronBack className="text-xl" />
           </Link>
           <h1 className="text-2xl font-semibold">Edit Information</h1>

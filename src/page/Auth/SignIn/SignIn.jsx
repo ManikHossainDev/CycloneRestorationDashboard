@@ -19,7 +19,7 @@ const SignIn = () => {
     const { email, password } = values;
     try {
       const res = await login({ email, password });
-      console.log(res)
+      console.log(res, 'error show')
       // console.log(res?.data?.data?.authToken)
       if (res?.data?.code === 200) {
         const user = res?.data?.data?.attributes?.user;
@@ -31,10 +31,15 @@ const SignIn = () => {
           navigate("/");
         }else  if (user?.role === "contactor"){
           navigate("/Teams");
+        }else if (user?.role === "manager"){
+          navigate("/Manager");
         }
       }
+      if(res?.error?.data?.code === 401){
+        toast.error(res?.error?.data?.message)
+      }
     } catch (error) {
-      console.log(error?.error?.data?.message);
+      console.log( error?.error?.data?.message);
       toast.error(res.error.data.message);
     }
   };
