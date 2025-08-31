@@ -46,7 +46,6 @@ import ManagerLayout from "../layout/ManagerLayout";
 import ManagerRoutes from "./ManagerRoutes";
 import ManagerDashboard from "../component/Manager/ManagerDashboard/ManagerDashboard";
 import RepairRequest from "../component/Manager/RepairRequest/RepairRequest";
-import Member from "../component/Manager/Member/Member";
 import ManagerMessage from "../component/Manager/ManagerMessage/ManagerMessage";
 import ManagerSettings from "../component/Manager/ManagerSettings/ManagerSettings";
 import RepairRequestsDetails from "../component/Manager/RepairRequestsDetails/RepairRequestsDetails";
@@ -258,10 +257,6 @@ const router = createBrowserRouter([
       {
         path: "ManagerProductRequests/:id",
         element: <RepairRequestsDetails />,
-      },
-      {
-        path: "Member",
-        element: <Member />,
       },
       {
         path: "Contractor",

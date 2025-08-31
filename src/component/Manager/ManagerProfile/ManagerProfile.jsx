@@ -107,7 +107,7 @@ const ManagerProfile = () => {
           </div>
           
           <div className="flex justify-center">
-            <Link to="/edit-personal-info">
+            <Link to="/ManagerProfileEdit">
               <button className="px-8 py-3 bg-[#48B1DB] text-white rounded-lg">
                 Edit Profile
               </button>
