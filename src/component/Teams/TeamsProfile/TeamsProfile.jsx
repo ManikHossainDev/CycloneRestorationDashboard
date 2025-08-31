@@ -64,7 +64,7 @@ const TeamsProfile = () => {
             <label className="block text-sm font-semibold">Address</label>
             <input
               type="email"
-              defaultValue={user?.Address}
+              defaultValue={user?.address}
               readOnly
               className="w-full rounded-lg px-5 py-2 bg-white outline-none"
             />
@@ -107,7 +107,7 @@ const TeamsProfile = () => {
           </div>
           
           <div className="flex justify-center">
-            <Link to="/edit-personal-info">
+            <Link to="/teamsProfileEdit">
               <button className="px-8 py-3 bg-[#48B1DB] text-white rounded-lg">
                 Edit Profile
               </button>

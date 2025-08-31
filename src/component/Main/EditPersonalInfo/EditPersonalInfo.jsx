@@ -3,7 +3,10 @@ import { IoChevronBack, IoCameraOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { useGetUserQuery, useUpdateUserMutation } from "../../../redux/features/profile/profileApi";
+import {
+  useGetUserQuery,
+  useUpdateUserMutation,
+} from "../../../redux/features/profile/profileApi";
 
 const EditInformation = () => {
   const { data } = useGetUserQuery();
@@ -46,29 +49,29 @@ const EditInformation = () => {
     const form = e.target;
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
-    const callingCode = form.callingCode.value; 
+    const callingCode = form.callingCode.value;
     const phoneNumber = form.phoneNumber.value;
     const nidNumber = form.nidNumber.value;
     const dateOfBirth = form.dateOfBirth.value;
     const address = form.address.value;
-    
 
     const formdata = new FormData();
     formdata.append("firstName", firstName);
     formdata.append("lastName", lastName);
     formdata.append("callingCode", callingCode);
-    formdata.append("phoneNumber", phoneNumber);  
+    formdata.append("phoneNumber", phoneNumber);
     formdata.append("nidNumber", nidNumber);
     formdata.append("dateOfBirth", dateOfBirth);
     formdata.append("address", address);
-    if (formdata.image) {
-      formdata.append("image", selectedImage);
+    // ✅ Correct way: append image only if selected
+    if (selectedImage) {
+      formdata.append("profileImage", selectedImage);
     }
-    
 
     try {
       const response = await updateProfileInfo(formdata).unwrap();
-      if (response.data) {
+      console.log(response, "responsdata");
+      if (response.attributes) {
         toast.success("Profile updated successfully!");
         navigate("/personal-info");
       }
@@ -97,7 +100,10 @@ const EditInformation = () => {
       >
         {/* Profile Image */}
         <div className="flex justify-center">
-          <div onClick={() => fileInputRef.current.click()} className="cursor-pointer">
+          <div
+            onClick={() => fileInputRef.current.click()}
+            className="cursor-pointer"
+          >
             {previewImage ? (
               <img
                 className="border rounded-full w-[130px] h-[130px] object-cover"
@@ -122,60 +128,81 @@ const EditInformation = () => {
         </div>
 
         {/* Inputs */}
-        <input
-          type="text"
-          name="firstName"
-          defaultValue={user?.firstName || ""}
-          placeholder="Enter your first name"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            defaultValue={user?.firstName || ""}
+            placeholder="Enter your first name"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="lastName"
-          defaultValue={user?.lastName || ""}
-          placeholder="Enter your last name"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            defaultValue={user?.lastName || ""}
+            placeholder="Enter your last name"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="callingCode"
-          defaultValue={user?.callingCode || ""}
-          placeholder="Enter your calling code"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">Calling Code</label>
+          <input
+            type="text"
+            name="callingCode"
+            defaultValue={user?.callingCode || ""}
+            placeholder="Enter your calling code"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="phoneNumber"
-          defaultValue={user?.phoneNumber || ""}
-          placeholder="Enter your phone number"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">Phone Number</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            defaultValue={user?.phoneNumber || ""}
+            placeholder="Enter your phone number"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="nidNumber"
-          defaultValue={user?.nidNumber || ""}
-          placeholder="Enter your NID number"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">NID Number</label>
+          <input
+            type="text"
+            name="nidNumber"
+            defaultValue={user?.nidNumber || ""}
+            placeholder="Enter your NID number"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="date"
-          name="dateOfBirth"
-          defaultValue={user?.dateOfBirth || ""}
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">Date of Birth</label>
+          <input
+            type="date"
+            name="dateOfBirth"
+            defaultValue={user?.dateOfBirth || ""}
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="address"
-          defaultValue={user?.address || ""}
-          placeholder="Enter your address"
-          className="w-full border p-2 rounded mt-5"
-        />
+        <div className="mt-5">
+          <label className="block font-medium">Address</label>
+          <input
+            type="text"
+            name="address"
+            defaultValue={user?.address || ""}
+            placeholder="Enter your address"
+            className="w-full border p-2 rounded mt-2"
+          />
+        </div>
 
         {/* Submit */}
         <div className="flex justify-center mt-6">

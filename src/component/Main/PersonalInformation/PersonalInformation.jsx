@@ -64,7 +64,7 @@ const PersonalInformation = () => {
             <label className="block text-sm font-semibold">Address</label>
             <input
               type="email"
-              defaultValue={user?.Address}
+              defaultValue={user?.address}
               readOnly
               className="w-full rounded-lg px-5 py-2 bg-white outline-none"
             />
