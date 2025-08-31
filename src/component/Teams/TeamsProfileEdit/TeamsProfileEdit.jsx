@@ -8,7 +8,7 @@ import {
   useUpdateUserMutation,
 } from "../../../redux/features/profile/profileApi";
 
-const EditInformation = () => {
+const TeamsProfileEdit = () => {
   const { data } = useGetUserQuery();
   const user = data?.data?.attributes?.user;
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const EditInformation = () => {
       console.log(response, "responsdata");
       if (response.attributes) {
         toast.success("Profile updated successfully!");
-        navigate("/personal-info");
+        navigate("/TeamsProfile");
       }
     } catch (error) {
       console.error("Error updating profile:", error);

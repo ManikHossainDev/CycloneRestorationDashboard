@@ -31,7 +31,7 @@ const Header = ({ toggleSidebar }) => {
           onClick={() => {
             if (user?.role === "admin") {
               navigate("/notification");
-            } else if (user?.role === "member") {
+            } else if (user?.role === "contactor") {
               navigate("/TeamsNotification");
             } else if (user?.role === "manager") {
               navigate("/ManagerNotification");

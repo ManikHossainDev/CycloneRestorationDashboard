@@ -3,11 +3,12 @@ import { Modal, Space, Table, ConfigProvider, Button } from "antd";
 import { AiFillEye } from "react-icons/ai";
 import { useGetTotalAdminStatusQuery } from "../../../redux/features/Status/Status";
 import moment from "moment";
+import { imageBaseUrl } from "../../../config/imageBaseUrl";
 
 const RecentTransactions = () => {
   const { data: allData } = useGetTotalAdminStatusQuery();
   const members = allData?.data?.attributes?.recentMemberData || [];
-
+  console.log(members)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -16,9 +17,9 @@ const RecentTransactions = () => {
     sl: (index + 1).toString().padStart(2, "0"),
     userName: item.fullName,
     email: item.email,
-    phone: item.phone || "N/A",
+    phone: item.phoneNumber || "N/A",
     timeAndDate: moment(item.createdAt).format("DD MMM YY, hh A"),
-    userImage: "https://i.ibb.co/0C5x0zk/Ellipse-1232.png",
+    userImage: item?.profileImage ? `${imageBaseUrl}/${item?.profileImage}` : "",
   }));
 
   const showModal = (user) => {
@@ -131,7 +132,7 @@ const RecentTransactions = () => {
             </div>
             <div className="flex justify-between py-3 border-t-2 border-gray-400">
               <p>Phone :</p>
-              <p>{selectedUser?.phone || "N/A"}</p>
+              <p>{selectedUser?.phoneNumber || "N/A"}</p>
             </div>
             <div className="flex justify-between py-3 border-t-2 border-gray-400">
               <p>Time & Date :</p>
