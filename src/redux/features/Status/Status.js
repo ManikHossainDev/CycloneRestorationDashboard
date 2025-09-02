@@ -14,10 +14,17 @@ const Status = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    managerStatus: builder.query({
+      query: () => ({
+        url: "/api/v1/admin/manager/totalStatus",
+        method: "GET",
+      })
+    })
   }),
 });
 
 export const { 
   useGetTotalAdminStatusQuery, 
-  useGetRatioQuery 
+  useGetRatioQuery,
+  useManagerStatusQuery, 
 } = Status;

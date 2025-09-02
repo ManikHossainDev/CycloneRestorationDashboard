@@ -1,22 +1,18 @@
 import { BsFillClipboard2CheckFill } from "react-icons/bs";
-
-const data = {
-  totalUser: 1200,
-  recentUserData: [
-    { userId: 1, name: "John" },
-    { userId: 2, name: "Alice" },
-    { userId: 3, name: "Bob" },
-    { userId: 4, name: "Eve" },
-  ],
-};
-
-const Alldata = [
-  { title: "Total Member", value: data.totalUser },
-  { title: "Total Contractor", value: data.totalUser },
-  { title: "Total Complete Repair", value: data.totalUser },
-];
+import { useManagerStatusQuery } from "../../../redux/features/Status/Status";
 
 const ManagerStatus = () => {
+
+ const  {data:ManagerStatus} = useManagerStatusQuery()
+ const managerData = ManagerStatus?.data?.attributes;
+ console.log("manager Status data show ", managerData);
+
+  const Alldata = [
+  { title: "Total Member", value: managerData?.totalMember },
+  { title: "Total Contractor", value: managerData?.totalContactor },
+  { title: "Complete Application", value: managerData?.completeApplication },
+];
+
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7">
       {Alldata.map((item, idx) => (
