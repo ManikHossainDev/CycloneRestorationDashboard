@@ -4,14 +4,11 @@ import { Button, Form, message } from "antd";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
-import {
-  useGetAllPrivacyPolicyQuery,
-  useUpdatePrivacyPolicyMutation,
-} from "../../redux/features/PrivacyPolicy/PrivacyPolicyApi";
+import { useGetAllTeamAgreementQuery, useUpdateTeamAgreementMutation } from "../../redux/features/TeamAgreement/TeamAgreement";
 
 const EditUserAgreement = () => {
-  const { data, isLoading } = useGetAllPrivacyPolicyQuery();
-  const [updatePrivacyPolicy, { isLoading: isUpdating }] = useUpdatePrivacyPolicyMutation();
+  const { data, isLoading } = useGetAllTeamAgreementQuery();
+  const [updatePrivacyPolicy, { isLoading: isUpdating }] = useUpdateTeamAgreementMutation();
   const navigate = useNavigate();
   const [content, setContent] = useState("");
 
